@@ -29,7 +29,7 @@ class DetailActivity : AppCompatActivity() {
         if (movie != null) {
             title = movie.title
             binding.ivBackdropPath.loadUrl("https://image.tmdb.org/t/p/w780/${movie.backdrop_path}")
-            binding.tvDetailSummary.text =  movie.overview + movie.overview + movie.overview + movie.overview + movie.overview + movie.overview + movie.overview + movie.overview + movie.overview + movie.overview + movie.overview + movie.overview + movie.overview + movie.overview
+            binding.tvDetailSummary.text =  movie.overview
 
             bindDetailInfo(binding.tvDetailInfo, movie)
 
