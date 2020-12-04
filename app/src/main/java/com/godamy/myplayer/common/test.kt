@@ -29,3 +29,26 @@ fun whenExpression(view: View) {
         else -> "No Found"
     }
 }
+
+//LAMBDAS
+fun lambdasOp() {
+    //lambdas
+    val sum = { x: Int, y: Int -> x + y }
+    val mul = { x: Int, y: Int -> x * y }
+
+    val resSum = doOp(2, 3, sum) //5
+    val resMul = doOp(2, 3, mul) //6
+
+    //En este caso se declara la funcion dentro del bloque y no en una val separada
+    // Util para callbacks
+    val resRes = doOp(2, 3) { x, y ->
+        x - y
+    } // -1
+
+    //Usaremos una funcion que se comporta como lambdas
+    val resFun = doOp(2,3, ::sumFun)
+}
+
+fun sumFun (x: Int, y: Int) = x + y
+
+fun doOp(x: Int, y: Int, op: (Int, Int) -> Int) = op(x, y)
