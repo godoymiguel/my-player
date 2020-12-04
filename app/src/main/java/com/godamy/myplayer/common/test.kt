@@ -2,6 +2,7 @@ package com.godamy.myplayer.common
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
 
 abstract class Person(name: String, age: Int) {
@@ -46,9 +47,60 @@ fun lambdasOp() {
     } // -1
 
     //Usaremos una funcion que se comporta como lambdas
-    val resFun = doOp(2,3, ::sumFun)
+    val resFun = doOp(2, 3, ::sumFun)
 }
 
-fun sumFun (x: Int, y: Int) = x + y
+fun sumFun(x: Int, y: Int) = x + y
 
 fun doOp(x: Int, y: Int, op: (Int, Int) -> Int) = op(x, y)
+
+//LAMBDAS RECEIVERS
+//PARTE 1 CON UN TEXT VIEW
+fun TextView.apply2(boddy: TextView.() -> Unit): TextView {
+    this.boddy()
+    return this
+}
+
+fun TextView.run2(boddy: TextView.() -> EditText): EditText {
+    return this.boddy()
+}
+
+fun TextView.let2(boddy: (TextView) -> EditText): EditText {
+    return boddy(this)
+}
+
+fun with2(receiver: TextView, boddy: TextView.() -> EditText): EditText {
+    return receiver.boddy()
+}
+
+fun TextView.also2(boddy: (TextView) -> Unit): TextView {
+    boddy(this)
+    return this
+}
+
+//PARTE 2 GENERICOS DE LA PARTE 1
+//scope this
+fun <T> T.apply2(boddy: T.() -> Unit): T {
+    this.boddy()
+    return this
+}
+//scope this
+fun <T, U> T.run2(boddy: T.() -> U): U {
+    return this.boddy()
+}
+
+//scope it
+fun <T, U> T.let2(boddy: (T) -> U): U {
+    return boddy(this)
+}
+
+//scope this
+fun <T,U> with2(receiver: T, boddy: T.() -> U): U {
+    return receiver.boddy()
+}
+
+//scope it
+fun <T> T.also2(boddy: (T) -> Unit): T {
+    boddy(this)
+    return this
+}
