@@ -7,12 +7,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.godamy.myplayer.common.loadUrl
 import com.godamy.myplayer.databinding.ViewMediaItemBinding
 import com.godamy.myplayer.model.MediaItem
+import kotlin.properties.Delegates
 
 //TODO Creando un lamda (MediaItem) -> Unit
 class MediaItemAdapter(
-    var items: List<MediaItem>,
+    items: List<MediaItem> = emptyList(),
     private val mediaItemClickListener: (MediaItem) -> Unit
 ) : RecyclerView.Adapter<MediaItemAdapter.ViewHolder>() {
+
+    //TODO Notify by observable when the list of element changes
+    var items: List<MediaItem> by Delegates.observable(items){_,_,_ ->
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 //        TODO fun extension
@@ -44,7 +50,7 @@ class MediaItemAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(mediaItem: MediaItem) {
-            with(binding){
+            with(binding) {
                 tvMediaTitle.text = mediaItem.title
                 ivMediaThumb.loadUrl("https://image.tmdb.org/t/p/w185/${mediaItem.poster_path}")
                 ivVideoThumb.visibility = when {
