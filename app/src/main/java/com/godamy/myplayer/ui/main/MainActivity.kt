@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.godamy.myplayer.R
 import com.godamy.myplayer.common.Logger
+import com.godamy.myplayer.common.MediaList.Type
+import com.godamy.myplayer.common.getItems
 import com.godamy.myplayer.databinding.ActivityMainBinding
 import com.godamy.myplayer.model.MediaItem
 import com.godamy.myplayer.model.apiservice.MovieDbClient
@@ -33,11 +35,11 @@ class MainActivity : AppCompatActivity(), Logger {
     private val mediaItemAdapter = MediaItemAdapter(emptyList(), this::navigateTo)
 
     //TODO lateinit inicializo luego una variable
-    private lateinit var fusedLocationClient : FusedLocationProviderClient
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     //TODO Pedir permiso
     private val requestPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()){ isGranted ->
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             doRequestPopularMovies(isGranted)
         }
     //TODO con shouldShowRequestPermissionRationale puedo pedir por seguna ves el permiso
@@ -76,12 +78,15 @@ class MainActivity : AppCompatActivity(), Logger {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        mediaItemAdapter.items = when(item.itemId){
-            R.id.filter_all -> emptyList()
-            R.id.filter_photos -> emptyList()
-            R.id.filter_videos -> emptyList()
-            else -> emptyList()
+        var newItems = getItems().let {
+            when (item.itemId) {
+                R.id.filter_all -> it
+                R.id.filter_photos -> it.filter { it.type.equals(Type.PHOTO) }
+                R.id.filter_videos -> it.filter { it.type.equals(Type.VIDEO) }
+                else -> emptyList()
+            }
         }
+        logE(newItems.size.toString())
         return super.onOptionsItemSelected(item)
     }
 
@@ -95,7 +100,8 @@ class MainActivity : AppCompatActivity(), Logger {
         val result = geocoder.getFromLocation(
             location.latitude,
             location.longitude,
-            1)
+            1
+        )
 
         //TODO el simbolo ?: se llama operador elvis
         return result.firstOrNull()?.countryCode ?: DEFAULT_REGION
@@ -103,7 +109,7 @@ class MainActivity : AppCompatActivity(), Logger {
 
     private fun doRequestPopularMovies(isLocationGranted: Boolean) {
         //TODO Uso de corrutinas con funcion de suspencion
-        lifecycleScope.launch(){
+        lifecycleScope.launch() {
             val apiKey = getString(R.string.api_key)
             val region = getRegion(isLocationGranted)
             val result = MovieDbClient.service.listPopularMovies(apiKey, region)
