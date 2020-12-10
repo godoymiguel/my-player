@@ -6,6 +6,8 @@ import android.content.Intent
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -68,6 +70,21 @@ class MainActivity : AppCompatActivity(), Logger {
         logE("TEST ERROR LOG IN ACTIVITY")
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        mediaItemAdapter.items = when(item.itemId){
+            R.id.filter_all -> emptyList()
+            R.id.filter_photos -> emptyList()
+            R.id.filter_videos -> emptyList()
+            else -> emptyList()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     //TODO Obtener localizacion con geocoder
     private fun getRegionFromLocation(location: Location?): String {
         if (location == null) {
@@ -89,9 +106,8 @@ class MainActivity : AppCompatActivity(), Logger {
         lifecycleScope.launch(){
             val apiKey = getString(R.string.api_key)
             val region = getRegion(isLocationGranted)
-            val popularMovies = MovieDbClient.service.listPopularMovies(apiKey, region)
-            mediaItemAdapter.items = popularMovies.results
-            mediaItemAdapter.notifyDataSetChanged()
+            val result = MovieDbClient.service.listPopularMovies(apiKey, region)
+            mediaItemAdapter.items = result.results
         }
     }
 
@@ -113,10 +129,5 @@ class MainActivity : AppCompatActivity(), Logger {
         intent.putExtra(DetailActivity.EXTRA_MOVIE, mediaItem)
 
         startActivity(intent)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        logD("Destroit")
     }
 }

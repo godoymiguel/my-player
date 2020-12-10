@@ -104,3 +104,29 @@ fun <T> T.also2(boddy: (T) -> Unit): T {
     boddy(this)
     return this
 }
+
+//Collections
+fun testCollections() {
+    //List
+    val listOfInt = listOf(4,2,5,1)
+
+    var listMutable = mutableListOf(4,2,5,6)
+
+    //SET
+    val set = setOf(2,5,8,6)
+
+    //MAP
+    val map = mapOf(Pair("a",1), Pair("b",3))
+
+    for ((key, value) in map) {
+
+    }
+
+    //asSequence
+    //Las sequence se debe usar con las listas cuando estas tienen muchas operaciones y son complejas ya que me dan velocidad
+    val sequence = listOfInt
+        .asSequence()
+        .filter { it % 2 == 0 }
+        .map { it.toString() }
+        .toList()
+}
