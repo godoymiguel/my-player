@@ -14,7 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import com.godamy.myplayer.R
 import com.godamy.myplayer.common.Logger
 import com.godamy.myplayer.common.MediaList.Type
-import com.godamy.myplayer.common.getItems
+import com.godamy.myplayer.common.MediaProvider
 import com.godamy.myplayer.databinding.ActivityMainBinding
 import com.godamy.myplayer.model.MediaItem
 import com.godamy.myplayer.model.apiservice.MovieDbClient
@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity(), Logger {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var newItems = getItems().let {
+        var newItems = MediaProvider.getItems().let {
             when (item.itemId) {
                 R.id.filter_all -> it
                 R.id.filter_photos -> it.filter { it.type.equals(Type.PHOTO) }
