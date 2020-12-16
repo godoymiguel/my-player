@@ -117,10 +117,17 @@ fun testCollections() {
 
     //MAP
     val map = mapOf(Pair("a",1), Pair("b",3))
-
     for ((key, value) in map) {
 
     }
+    //Infix Function
+    val infix = mapOf("a" to 1, "b" to 3)
+
+    for(i in 0 until 10) {
+
+    }
+    (0 until 10).forEach(::print)
+
 
     //asSequence
     //Las sequence se debe usar con las listas cuando estas tienen muchas operaciones y son complejas ya que me dan velocidad
