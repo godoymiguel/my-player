@@ -4,6 +4,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 abstract class Person(name: String, age: Int) {
     var name = name
@@ -137,3 +141,13 @@ fun testCollections() {
         .map { it.toString() }
         .toList()
 }
+
+//Corrutinas
+fun testCorrutina(viewGroup: ViewGroup) {
+    GlobalScope.launch(Dispatchers.Main) {
+        var result = withContext(Dispatchers.IO) { heavyTask() }
+        print(result)
+    }
+}
+
+fun  heavyTask() : String = "Hello"

@@ -8,13 +8,13 @@ import android.location.Location
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.ProgressBar
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.godamy.myplayer.R
 import com.godamy.myplayer.common.Logger
-import com.godamy.myplayer.common.MediaList.Type
-import com.godamy.myplayer.common.MediaProvider
 import com.godamy.myplayer.databinding.ActivityMainBinding
 import com.godamy.myplayer.model.MediaItem
 import com.godamy.myplayer.model.apiservice.MovieDbClient
@@ -32,10 +32,13 @@ class MainActivity : AppCompatActivity(), Logger {
         private const val DEFAULT_REGION = "US"
     }
 
-    private val mediaItemAdapter = MediaItemAdapter(emptyList(), this::navigateTo)
+    private var mediaItems: List<MediaItem> = emptyList()
+
+    private val mediaItemAdapter = MediaItemAdapter(mediaItems, this::navigateTo)
 
     //TODO lateinit inicializo luego una variable
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var progressBar: ProgressBar
 
     //TODO Pedir permiso
     private val requestPermissionLauncher =
@@ -61,6 +64,7 @@ class MainActivity : AppCompatActivity(), Logger {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         val mediaItemRecycler = binding.rvMain
+        progressBar =  binding.progressBar
 
         //TODO Llamado a los landas y funcion de extension
 
@@ -78,15 +82,16 @@ class MainActivity : AppCompatActivity(), Logger {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var newItems = MediaProvider.getItems().let {
+        var newItems = mediaItems.let {
             when (item.itemId) {
                 R.id.filter_all -> it
-                R.id.filter_photos -> it.filter { it.type.equals(Type.PHOTO) }
-                R.id.filter_videos -> it.filter { it.type.equals(Type.VIDEO) }
+                R.id.filter_photos -> it.filter { !it.video }
+                R.id.filter_videos -> it.filter { it.video }
                 else -> emptyList()
             }
         }
-        logE(newItems.size.toString())
+
+        mediaItemAdapter.items = newItems
         return super.onOptionsItemSelected(item)
     }
 
@@ -110,10 +115,13 @@ class MainActivity : AppCompatActivity(), Logger {
     private fun doRequestPopularMovies(isLocationGranted: Boolean) {
         //TODO Uso de corrutinas con funcion de suspencion
         lifecycleScope.launch() {
+            showProgressBar(true)
             val apiKey = getString(R.string.api_key)
             val region = getRegion(isLocationGranted)
             val result = MovieDbClient.service.listPopularMovies(apiKey, region)
-            mediaItemAdapter.items = result.results
+            mediaItems = result.results
+            mediaItemAdapter.items = mediaItems
+            showProgressBar(false)
         }
     }
 
@@ -135,5 +143,12 @@ class MainActivity : AppCompatActivity(), Logger {
         intent.putExtra(DetailActivity.EXTRA_MOVIE, mediaItem)
 
         startActivity(intent)
+    }
+
+    private fun showProgressBar(status : Boolean) {
+        progressBar.visibility = when {
+            status -> View.VISIBLE
+            else -> View.GONE
+        }
     }
 }
