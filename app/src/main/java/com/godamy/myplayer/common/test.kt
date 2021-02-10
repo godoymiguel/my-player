@@ -151,3 +151,8 @@ fun testCorrutina(viewGroup: ViewGroup) {
 }
 
 fun  heavyTask() : String = "Hello"
+
+fun testNulidad() {
+    val x : Int? = null
+    val y : Long = x?.toLong() ?: 0
+}
