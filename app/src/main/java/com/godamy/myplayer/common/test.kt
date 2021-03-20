@@ -156,3 +156,18 @@ fun testNulidad() {
     val x : Int? = null
     val y : Long = x?.toLong() ?: 0
 }
+
+//SEALED CLASS
+sealed class Op {
+    class Add(val value : Int) : Op()
+    class Sub(val value : Int) : Op()
+    class Mul(val value : Int) : Op()
+    class Inc : Op()
+}
+
+fun doOp(x: Int, op: Op) : Int = when (op){
+    is Op.Add -> x + op.value
+    is Op.Mul -> x * op.value
+    is Op.Sub -> x - op.value
+    is Op.Inc -> x + 1
+}
