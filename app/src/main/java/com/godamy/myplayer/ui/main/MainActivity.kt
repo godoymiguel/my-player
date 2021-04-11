@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity(), Logger {
 
     private fun doRequestPopularMovies(isLocationGranted: Boolean) {
         //TODO Uso de corrutinas con funcion de suspencion
-        lifecycleScope.launch() {
+        lifecycleScope.launch {
             showProgressBar(true)
             val apiKey = getString(R.string.api_key)
             val region = getRegion(isLocationGranted)
@@ -146,9 +146,6 @@ class MainActivity : AppCompatActivity(), Logger {
     }
 
     private fun showProgressBar(status : Boolean) {
-        progressBar.visibility = when {
-            status -> View.VISIBLE
-            else -> View.GONE
-        }
+        progressBar.visibility = if (status) View.VISIBLE else View.GONE
     }
 }
