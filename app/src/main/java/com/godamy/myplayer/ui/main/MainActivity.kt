@@ -2,7 +2,6 @@ package com.godamy.myplayer.ui.main
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
@@ -15,9 +14,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.godamy.myplayer.R
 import com.godamy.myplayer.common.Logger
+import com.godamy.myplayer.common.startActivity
 import com.godamy.myplayer.databinding.ActivityMainBinding
 import com.godamy.myplayer.model.MediaItem
 import com.godamy.myplayer.model.apiservice.MovieDbClient
+import com.godamy.myplayer.ui.common.Filter
 import com.godamy.myplayer.ui.detail.DetailActivity
 import com.godamy.myplayer.ui.main.adapter.MediaItemAdapter
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -82,16 +83,23 @@ class MainActivity : AppCompatActivity(), Logger {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var newItems = mediaItems.let {
-            when (item.itemId) {
-                R.id.filter_all -> it
-                R.id.filter_photos -> it.filter { !it.video }
-                R.id.filter_videos -> it.filter { it.video }
-                else -> emptyList()
-            }
+        val filter = when(item.itemId) {
+            R.id.filter_photos -> Filter.ByType(false)
+            R.id.filter_videos -> Filter.ByType(true)
+            else -> Filter.None
         }
 
-        mediaItemAdapter.items = newItems
+//        var newItems = mediaItems.let {
+//            when (item.itemId) {
+//                R.id.filter_all -> it
+//                R.id.filter_photos -> it.filter { !it.video }
+//                R.id.filter_videos -> it.filter { it.video }
+//                else -> emptyList()
+//            }
+//        }
+
+//        mediaItemAdapter.items = newItems
+        updateItems(filter)
         return super.onOptionsItemSelected(item)
     }
 
@@ -139,13 +147,22 @@ class MainActivity : AppCompatActivity(), Logger {
         }
 
     private fun navigateTo(mediaItem: MediaItem) {
-        val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra(DetailActivity.EXTRA_MOVIE, mediaItem)
-
-        startActivity(intent)
+        //Extension function
+        startActivity<DetailActivity>(DetailActivity.EXTRA_MOVIE to mediaItem)
     }
 
     private fun showProgressBar(status : Boolean) {
         progressBar.visibility = if (status) View.VISIBLE else View.GONE
+    }
+
+    private fun updateItems(filter : Filter = Filter.None) {
+        showProgressBar(true)
+        mediaItemAdapter.items = mediaItems.let { media ->
+            when(filter) {
+                Filter.None -> media
+                is Filter.ByType -> media.filter { it.video == filter.video}
+            }
+        }
+        showProgressBar(false)
     }
 }
