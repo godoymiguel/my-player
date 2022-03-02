@@ -26,12 +26,12 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val movie = intent.getParcelableExtra<MediaItem>(EXTRA_MOVIE)
-        if (movie != null) {
-            title = movie.title
-            binding.ivBackdropPath.loadUrl("https://image.tmdb.org/t/p/w780/${movie.backdrop_path}")
-            binding.tvDetailSummary.text =  movie.overview + movie.overview + movie.overview + movie.overview + movie.overview + movie.overview + movie.overview + movie.overview + movie.overview + movie.overview + movie.overview + movie.overview + movie.overview + movie.overview
+        movie?.let {
+            title = it.title
+            binding.ivBackdropPath.loadUrl("https://image.tmdb.org/t/p/w780/${it.backdrop_path}")
+            binding.tvDetailSummary.text =  it.overview
 
-            bindDetailInfo(binding.tvDetailInfo, movie)
+            bindDetailInfo(binding.tvDetailInfo, it)
 
         }
     }

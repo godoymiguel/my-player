@@ -6,4 +6,7 @@
     <string name="release_date">Fecha de Lanzamiento</string>
     <string name="popularity">Popularidad</string>
     <string name="vote_average">Votación Media</string>
+    <string name="all">Todos</string>
+    <string name="photos">Fotos</string>
+    <string name="videos">Videos</string>
 </resources>
