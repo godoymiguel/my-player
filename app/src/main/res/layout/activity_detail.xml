@@ -72,7 +72,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:src="@drawable/ic_favorite_border"
+        android:visibility="gone"
         app:layout_anchor="@id/appbar"
-        app:layout_anchorGravity="end|bottom"/>
+        app:layout_anchorGravity="end|bottom" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

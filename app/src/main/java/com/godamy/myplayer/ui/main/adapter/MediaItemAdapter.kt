@@ -15,6 +15,9 @@ class MediaItemAdapter(
     private val mediaItemClickListener: (MediaItem) -> Unit
 ) : RecyclerView.Adapter<MediaItemAdapter.ViewHolder>() {
 
+    companion object {
+        private const val IMAGE_URL = "https://image.tmdb.org/t/p/w185/"
+    }
     //TODO Notify by observable when the list of element changes
     var items: List<MediaItem> by Delegates.observable(items){_,_,_ ->
         notifyDataSetChanged()
@@ -52,7 +55,7 @@ class MediaItemAdapter(
         fun bind(mediaItem: MediaItem) {
             with(binding) {
                 tvMediaTitle.text = mediaItem.title
-                ivMediaThumb.loadUrl("https://image.tmdb.org/t/p/w185/${mediaItem.poster_path}")
+                ivMediaThumb.loadUrl("$IMAGE_URL${mediaItem.posterPath}")
                 ivVideoThumb.visibility = when {
                     mediaItem.video -> View.VISIBLE
                     else -> View.GONE

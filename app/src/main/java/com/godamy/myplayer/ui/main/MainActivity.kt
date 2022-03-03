@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity(), Logger {
         //TODO Solicitar permiso
         requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION)
 
-        logE("TEST ERROR LOG IN ACTIVITY")
+        logD("TEST LOG IN ACTIVITY")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -105,19 +105,19 @@ class MainActivity : AppCompatActivity(), Logger {
 
     //TODO Obtener localizacion con geocoder
     private fun getRegionFromLocation(location: Location?): String {
-        if (location == null) {
-            return DEFAULT_REGION
+        return location?.let {
+            val geocoder = Geocoder(this@MainActivity)
+            val result = geocoder.getFromLocation(
+                location.latitude,
+                location.longitude,
+                1
+            )
+
+            //TODO el simbolo ?: se llama operador elvis
+            result.firstOrNull()?.countryCode ?: DEFAULT_REGION
+        } ?: run {
+            DEFAULT_REGION
         }
-
-        val geocoder = Geocoder(this)
-        val result = geocoder.getFromLocation(
-            location.latitude,
-            location.longitude,
-            1
-        )
-
-        //TODO el simbolo ?: se llama operador elvis
-        return result.firstOrNull()?.countryCode ?: DEFAULT_REGION
     }
 
     private fun doRequestPopularMovies(isLocationGranted: Boolean) {

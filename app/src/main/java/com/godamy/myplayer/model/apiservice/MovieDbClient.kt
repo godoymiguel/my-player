@@ -1,16 +1,23 @@
 package com.godamy.myplayer.model.apiservice
 
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 object MovieDbClient {
 
-    //TODO create retrofit url
+    private val okHttpClient = HttpLoggingInterceptor().run {
+        level = HttpLoggingInterceptor.Level.BODY
+        OkHttpClient.Builder().addInterceptor(this).build()
+    }
+
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/3/")
+        .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-//  TODO add service to retrofit to make request
-    val service = retrofit.create(MediaApiService::class.java)
+    val service: MediaApiService = retrofit.create()
 }
