@@ -25,7 +25,7 @@ fun RecyclerView.ViewHolder.toast(message: String, length: Int = Toast.LENGTH_SH
     itemView.context.toast(message, length)
 }
 
-fun ViewGroup.infate(@LayoutRes layoutRes: Int) : View {
+fun ViewGroup.infate(@LayoutRes layoutRes: Int): View {
     return LayoutInflater.from(this.context).inflate(layoutRes, this, false)
 }
 
@@ -43,8 +43,8 @@ fun SpannableStringBuilder.appendInfo(context: Context, stringRes: Int, value: S
     this.appendLine(value)
 }
 
-//Start Activity
-inline fun <reified T: Activity> Context.startActivity(vararg pairs: Pair<String, Any?> ){
+// Start Activity
+inline fun <reified T : Activity> Context.startActivity(vararg pairs: Pair<String, Any?>) {
     /** Forma original
      * val bundle = bundleOf(*pairs)
      * val intent = Intent(this, T::class.java)

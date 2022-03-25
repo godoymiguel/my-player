@@ -12,12 +12,6 @@ import com.godamy.myplayer.model.MediaItem
 
 class DetailActivity : AppCompatActivity() {
 
-    //TODO objeto estatico comparten todas las instancias
-    companion object {
-        const val EXTRA_MOVIE = "DetailActivity:title"
-        private const val IMAGE_URL = "https://image.tmdb.org/t/p/w780/"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityDetailBinding.inflate(layoutInflater)
@@ -33,11 +27,10 @@ class DetailActivity : AppCompatActivity() {
             binding.tvDetailSummary.text =  it.overview
 
             bindDetailInfo(binding.tvDetailInfo, it)
-
         }
     }
 
-//    TODO Spanned String para Agregar mas de una lunea en el mismo TextView
+    // TODO Spanned String para Agregar mas de una lunea en el mismo TextView
     private fun bindDetailInfo(tvDetailInfo: TextView, movie: MediaItem) {
         tvDetailInfo.text = buildSpannedString {
             appendInfo(applicationContext, R.string.original_language, movie.originalLanguage.uppercase())
@@ -46,5 +39,10 @@ class DetailActivity : AppCompatActivity() {
             appendInfo(applicationContext, R.string.popularity, movie.popularity.toString())
             appendInfo(applicationContext, R.string.vote_average, movie.voteAverage.toString())
         }
+    }
+
+    companion object {
+        const val EXTRA_MOVIE = "DetailActivity:title"
+        private const val IMAGE_URL = "https://image.tmdb.org/t/p/w780/"
     }
 }

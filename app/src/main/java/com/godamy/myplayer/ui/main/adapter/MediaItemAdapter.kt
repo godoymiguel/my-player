@@ -9,7 +9,7 @@ import com.godamy.myplayer.databinding.ViewMediaItemBinding
 import com.godamy.myplayer.model.MediaItem
 import kotlin.properties.Delegates
 
-//TODO Creando un lamda (MediaItem) -> Unit
+// TODO Creando un lamda (MediaItem) -> Unit
 class MediaItemAdapter(
     items: List<MediaItem> = emptyList(),
     private val mediaItemClickListener: (MediaItem) -> Unit
@@ -18,8 +18,9 @@ class MediaItemAdapter(
     companion object {
         private const val IMAGE_URL = "https://image.tmdb.org/t/p/w185/"
     }
-    //TODO Notify by observable when the list of element changes
-    var items: List<MediaItem> by Delegates.observable(items){_,_,_ ->
+
+    // TODO Notify by observable when the list of element changes
+    var items: List<MediaItem> by Delegates.observable(items) { _, _, _ ->
         notifyDataSetChanged()
     }
 
@@ -37,16 +38,15 @@ class MediaItemAdapter(
         return ViewHolder(binding)
     }
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        //TODO reciclo las celdas que salen de la pantalla
+        // TODO reciclo las celdas que salen de la pantalla
         val mediaItem = items[position]
         holder.bind(mediaItem)
-        //TODO aplicando una lamda
+        // TODO aplicando una lamda
         holder.itemView.setOnClickListener { mediaItemClickListener(mediaItem) }
     }
 
-    //TODO devolver el numero de item
+    // TODO devolver el numero de item
     override fun getItemCount(): Int = items.size
 
     class ViewHolder(private val binding: ViewMediaItemBinding) :
