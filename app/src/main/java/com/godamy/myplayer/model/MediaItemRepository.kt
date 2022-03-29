@@ -7,6 +7,7 @@ import com.godamy.myplayer.model.apiservice.RemoteConnection
 class MediaItemRepository(activity: AppCompatActivity) {
 
     private val apiKey = activity.getString(R.string.api_key)
+    // TODO IOC
     private val regionRepository = RegionRepository(activity)
 
     suspend fun finPopularMovies() =

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="2dp">
+    android:padding="2dp"
+    tools:context=".ui.main.adapter.MediaItemAdapter">
 
     <FrameLayout
         android:layout_width="match_parent"
