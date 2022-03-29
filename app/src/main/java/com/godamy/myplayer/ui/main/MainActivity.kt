@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), Logger {
 
     private var mediaItems: List<MediaItem> = emptyList()
 
-    private val mediaItemAdapter = MediaItemAdapter(mediaItems, this::navigateTo)
+    private val mediaItemAdapter = MediaItemAdapter(this::navigateTo)
 
     //TODO lateinit inicializo luego una variable
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity(), Logger {
             val region = getRegion(isLocationGranted)
             val result = MovieDbClient.service.listPopularMovies(apiKey, region)
             mediaItems = result.results
-            mediaItemAdapter.items = mediaItems
+            mediaItemAdapter.submitList(mediaItems)
             showProgressBar(false)
         }
     }
@@ -157,12 +157,12 @@ class MainActivity : AppCompatActivity(), Logger {
 
     private fun updateItems(filter : Filter = Filter.None) {
         showProgressBar(true)
-        mediaItemAdapter.items = mediaItems.let { media ->
+        mediaItemAdapter.submitList(mediaItems.let { media ->
             when(filter) {
                 Filter.None -> media
                 is Filter.ByType -> media.filter { it.video == filter.video}
             }
-        }
+        })
         showProgressBar(false)
     }
 }
