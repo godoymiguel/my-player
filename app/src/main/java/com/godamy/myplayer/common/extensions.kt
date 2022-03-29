@@ -26,9 +26,8 @@ fun RecyclerView.ViewHolder.toast(message: String, length: Int = Toast.LENGTH_SH
     itemView.context.toast(message, length)
 }
 
-fun ViewGroup.infate(@LayoutRes layoutRes: Int): View {
-    return LayoutInflater.from(this.context).inflate(layoutRes, this, false)
-}
+fun ViewGroup.infate(@LayoutRes layoutRes: Int): View =
+    LayoutInflater.from(this.context).inflate(layoutRes, this, false)
 
 fun ImageView.loadUrl(url: String) {
     Glide.with(this)
@@ -39,7 +38,7 @@ fun ImageView.loadUrl(url: String) {
 fun SpannableStringBuilder.appendInfo(context: Context, stringRes: Int, value: String) {
     this.bold {
         append(context.getString(stringRes))
-        append((": "))
+        append(": ")
     }
     this.appendLine(value)
 }

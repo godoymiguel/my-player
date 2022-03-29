@@ -15,7 +15,8 @@ class RegionRepository(activity: AppCompatActivity) {
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity)
     private val geocoder = Geocoder(activity)
 
-    private val coarsePermisionChecker = PermissionChecker(activity, Manifest.permission.ACCESS_COARSE_LOCATION)
+    private val coarsePermisionChecker =
+        PermissionChecker(activity, Manifest.permission.ACCESS_COARSE_LOCATION)
 
     suspend fun findRegion(): String = findLastLocation().toRegion()
 
