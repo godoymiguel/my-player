@@ -3,10 +3,10 @@ package com.godamy.myplayer.ui.main
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.ProgressBar
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
+import androidx.core.view.isVisible
 import com.godamy.myplayer.R
 import com.godamy.myplayer.common.Logger
 import com.godamy.myplayer.common.startActivity
@@ -17,29 +17,37 @@ import com.godamy.myplayer.ui.common.Filter
 import com.godamy.myplayer.ui.detail.DetailActivity
 import com.godamy.myplayer.ui.main.adapter.MediaItemAdapter
 
-class MainActivity : AppCompatActivity(), Logger, MainPresenter.View {
+class MainActivity : AppCompatActivity(), Logger {
 
-    private val presenter by lazy {
-        MainPresenter(
-            lifecycleScope,
-            MediaItemRepository(this@MainActivity)
+    private val viewModel: MainViewModel by viewModels {
+        MainViewModelFactory(
+            MediaItemRepository(
+                this@MainActivity
+            )
         )
     }
-    private val mediaItemAdapter = MediaItemAdapter { presenter.onMediaItemClicked(it) }
 
+    private lateinit var binding: ActivityMainBinding
     private lateinit var progressBar: ProgressBar
+    private val mediaItemAdapter = MediaItemAdapter { viewModel.onMediaItemClicked(it) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val mediaItemRecycler = binding.rvMain
         mediaItemRecycler.adapter = mediaItemAdapter
         progressBar = binding.progressBar
 
-        presenter.onCreate(this)
+        viewModel.state.observe(this, ::updateUI)
         logD("MAIN ACTIVITY")
+    }
+
+    private fun updateUI(state: MainUiState) {
+        binding.progressBar.isVisible = state.loading
+        state.mediaItem?.let(mediaItemAdapter::submitList)
+        state.navigateTo?.let(::navigateTo)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -54,24 +62,11 @@ class MainActivity : AppCompatActivity(), Logger, MainPresenter.View {
             else -> Filter.None
         }
 
-        presenter.updateItems(filter)
+        viewModel.updateItems(filter)
         return super.onOptionsItemSelected(item)
     }
 
-    override fun navigateTo(mediaItem: MediaItem) {
+    private fun navigateTo(mediaItem: MediaItem) {
         startActivity<DetailActivity>(DetailActivity.EXTRA_MOVIE to mediaItem)
-    }
-
-    override fun showProgressBar(status: Boolean) {
-        progressBar.visibility = if (status) View.VISIBLE else View.GONE
-    }
-
-    override fun onDestroy() {
-        presenter.onDestroy()
-        super.onDestroy()
-    }
-
-    override fun updateData(mediaItems: List<MediaItem>) {
-        mediaItemAdapter.submitList(mediaItems)
     }
 }
