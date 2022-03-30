@@ -16,14 +16,16 @@ import com.godamy.myplayer.model.MediaItemRepository
 import com.godamy.myplayer.ui.common.Filter
 import com.godamy.myplayer.ui.detail.DetailActivity
 import com.godamy.myplayer.ui.main.adapter.MediaItemAdapter
-import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity(), Logger {
+class MainActivity : AppCompatActivity(), Logger, MainPresenter.View {
 
-    private var mediaItems: List<MediaItem> = emptyList()
-    private val mediaItemRepository by lazy { MediaItemRepository(this@MainActivity) }
-
-    private val mediaItemAdapter = MediaItemAdapter(this::navigateTo)
+    private val presenter by lazy {
+        MainPresenter(
+            lifecycleScope,
+            MediaItemRepository(this@MainActivity)
+        )
+    }
+    private val mediaItemAdapter = MediaItemAdapter { presenter.onMediaItemClicked(it) }
 
     private lateinit var progressBar: ProgressBar
 
@@ -33,18 +35,11 @@ class MainActivity : AppCompatActivity(), Logger {
         setContentView(binding.root)
 
         val mediaItemRecycler = binding.rvMain
+        mediaItemRecycler.adapter = mediaItemAdapter
         progressBar = binding.progressBar
 
-        mediaItemRecycler.adapter = mediaItemAdapter
-
-        lifecycleScope.launch {
-            showProgressBar(true)
-            mediaItems = mediaItemRepository.finPopularMovies().results
-            mediaItemAdapter.submitList(mediaItems)
-            showProgressBar(false)
-        }
-
-        logD("TEST LOG IN ACTIVITY")
+        presenter.onCreate(this)
+        logD("MAIN ACTIVITY")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -59,28 +54,24 @@ class MainActivity : AppCompatActivity(), Logger {
             else -> Filter.None
         }
 
-        updateItems(filter)
+        presenter.updateItems(filter)
         return super.onOptionsItemSelected(item)
     }
 
-    private fun navigateTo(mediaItem: MediaItem) {
+    override fun navigateTo(mediaItem: MediaItem) {
         startActivity<DetailActivity>(DetailActivity.EXTRA_MOVIE to mediaItem)
     }
 
-    private fun showProgressBar(status: Boolean) {
+    override fun showProgressBar(status: Boolean) {
         progressBar.visibility = if (status) View.VISIBLE else View.GONE
     }
 
-    private fun updateItems(filter: Filter = Filter.None) {
-        showProgressBar(true)
-        mediaItemAdapter.submitList(
-            mediaItems.let { media ->
-                when (filter) {
-                    Filter.None -> media
-                    is Filter.ByType -> media.filter { it.video == filter.video }
-                }
-            }
-        )
-        showProgressBar(false)
+    override fun onDestroy() {
+        presenter.onDestroy()
+        super.onDestroy()
+    }
+
+    override fun updateData(mediaItems: List<MediaItem>) {
+        mediaItemAdapter.submitList(mediaItems)
     }
 }
