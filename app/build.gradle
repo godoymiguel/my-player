@@ -59,6 +59,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
 //    https://developer.android.com/kotlin/ktx
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-alpha05'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0-alpha05'
 
     implementation 'androidx.activity:activity-ktx:1.6.0-alpha01'

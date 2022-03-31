@@ -3,9 +3,13 @@ package com.godamy.myplayer.ui.detail
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.godamy.myplayer.common.loadUrl
 import com.godamy.myplayer.databinding.ActivityDetailBinding
 import com.godamy.myplayer.model.MediaItem
+import kotlinx.coroutines.launch
 
 class DetailActivity : AppCompatActivity() {
 
@@ -23,8 +27,10 @@ class DetailActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        viewModel.state.observe(this) {
-            updateUI(it.mediaItem)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.state.collect { updateUI(it.mediaItem) }
+            }
         }
     }
 

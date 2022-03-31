@@ -7,6 +7,9 @@ import android.widget.ProgressBar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.godamy.myplayer.R
 import com.godamy.myplayer.common.Logger
 import com.godamy.myplayer.common.startActivity
@@ -16,6 +19,7 @@ import com.godamy.myplayer.model.MediaItemRepository
 import com.godamy.myplayer.ui.common.Filter
 import com.godamy.myplayer.ui.detail.DetailActivity
 import com.godamy.myplayer.ui.main.adapter.MediaItemAdapter
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(), Logger {
 
@@ -40,7 +44,13 @@ class MainActivity : AppCompatActivity(), Logger {
         mediaItemRecycler.adapter = mediaItemAdapter
         progressBar = binding.progressBar
 
-        viewModel.state.observe(this, ::updateUI)
+        // Stateflow
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.state.collect(this@MainActivity::updateUI)
+            }
+        }
+
         logD("MAIN ACTIVITY")
     }
 

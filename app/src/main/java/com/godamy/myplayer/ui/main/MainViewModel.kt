@@ -1,26 +1,25 @@
 package com.godamy.myplayer.ui.main
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.godamy.myplayer.model.MediaItem
 import com.godamy.myplayer.model.MediaItemRepository
 import com.godamy.myplayer.ui.common.Filter
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val mediaItemRepository: MediaItemRepository
 ) : ViewModel() {
 
-    private val _state = MutableLiveData(MainUiState())
-    val state: LiveData<MainUiState>
-        get() {
-            if (_state.value?.mediaItem == null) {
-                refresh()
-            }
-            return _state
-        }
+    private val _state = MutableStateFlow(MainUiState())
+    val state: StateFlow<MainUiState> = _state.asStateFlow()
+
+    init {
+        refresh()
+    }
 
     private var mediaItems: List<MediaItem> = emptyList()
 
@@ -37,7 +36,7 @@ class MainViewModel(
     }
 
     fun updateItems(filter: Filter = Filter.None) {
-        _state.value = _state.value?.copy(loading = true, navigateTo = null)
+        _state.value = _state.value.copy(loading = true, navigateTo = null)
         _state.value = MainUiState(
             mediaItem = mediaItems.let { media ->
                 when (filter) {
