@@ -30,6 +30,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             findNavController().popBackStack()
         }
 
+        // MainFragment e.g with without extension function
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { binding.updateUI(it) }

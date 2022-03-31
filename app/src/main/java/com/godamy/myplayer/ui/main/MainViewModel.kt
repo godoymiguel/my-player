@@ -25,7 +25,7 @@ class MainViewModel(
 
     private fun refresh() {
         viewModelScope.launch {
-            _state.value = MainUiState(loading = true, navigateTo = null)
+            _state.value = MainUiState(loading = true)
             mediaItems = mediaItemRepository.finPopularMovies().results
             _state.value = MainUiState(mediaItem = mediaItems)
         }
@@ -35,8 +35,12 @@ class MainViewModel(
         _state.value = MainUiState(navigateTo = mediaItem)
     }
 
+    fun onNavigationDone(){
+        _state.value = _state.value.copy(navigateTo = null)
+    }
+
     fun updateItems(filter: Filter = Filter.None) {
-        _state.value = _state.value.copy(loading = true, navigateTo = null)
+        _state.value = _state.value.copy(loading = true)
         _state.value = MainUiState(
             mediaItem = mediaItems.let { media ->
                 when (filter) {

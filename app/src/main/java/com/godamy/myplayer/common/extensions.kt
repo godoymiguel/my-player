@@ -12,9 +12,15 @@ import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.core.os.bundleOf
 import androidx.core.text.bold
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
 fun Context.toast(message: String, length: Int = Toast.LENGTH_SHORT) {
     Toast
@@ -65,4 +71,17 @@ inline fun <T> basicDiffUtil(
 
     override fun areContentsTheSame(oldItem: T, newItem: T): Boolean =
         areContentsTheSame(oldItem, newItem)
+}
+
+// lifecycle
+fun <T> LifecycleOwner.launchAndCollect(
+    flow: Flow<T>,
+    state: Lifecycle.State = Lifecycle.State.STARTED,
+    body: (T) -> Unit
+) {
+    lifecycleScope.launch {
+        this@launchAndCollect.repeatOnLifecycle(state) {
+            flow.collect(body)
+        }
+    }
 }
