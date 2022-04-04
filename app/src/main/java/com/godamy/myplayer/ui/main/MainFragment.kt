@@ -2,7 +2,6 @@ package com.godamy.myplayer.ui.main
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.godamy.myplayer.R
@@ -34,16 +33,14 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
 
         // DetailFragment e.g. without extension function
-        viewLifecycleOwner.launchAndCollect(viewModel.state) { binding.updateUI(it) }
+        viewLifecycleOwner.launchAndCollect(viewModel.state) {
+            binding.loading = it.loading
+            binding.mediaItems = it.mediaItem
+        }
 
         mainState.requestLocationPermission {
             viewModel.onUiReady()
         }
-    }
-
-    private fun FragmentMainBinding.updateUI(state: MainUiState) {
-        progressBar.isVisible = state.loading
-        state.mediaItem?.let(mediaItemAdapter::submitList)
     }
 
     //    override fun onCreateOptionsMenu(menu: Menu): Boolean {

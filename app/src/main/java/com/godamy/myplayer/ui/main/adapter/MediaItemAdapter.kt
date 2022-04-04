@@ -35,20 +35,7 @@ class MediaItemAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(mediaItem: MediaItem) {
-            with(binding) {
-                tvMediaTitle.text = mediaItem.title
-                ivMediaThumb.loadUrl("$IMAGE_URL${mediaItem.posterPath}")
-                ivVideoThumb.visibility =
-                    if (mediaItem.video) {
-                        View.VISIBLE
-                    } else {
-                        View.GONE
-                    }
-            }
+            binding.mediaItem = mediaItem
         }
-    }
-
-    companion object {
-        private const val IMAGE_URL = "https://image.tmdb.org/t/p/w185/"
     }
 }

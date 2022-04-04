@@ -1,44 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="2dp"
-    tools:context=".ui.main.adapter.MediaItemAdapter">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <data>
+        <import type="com.godamy.myplayer.model.MediaItem" />
+        <variable
+            name="mediaItem"
+            type="MediaItem" />
+    </data>
 
-        <ImageView
-            android:id="@+id/iv_mediaThumb"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            app:srcCompat="@mipmap/ic_launcher" />
-
-        <ImageView
-            android:id="@+id/iv_videoThumb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            app:srcCompat="@drawable/ic_baseline_play_circle"
-            tools:srcCompat="@drawable/ic_launcher_foreground"
-            tools:visibility="visible" />
-    </FrameLayout>
-
-    <TextView
-        android:id="@+id/tv_mediaTitle"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#333"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:padding="16dp"
+        android:orientation="vertical"
+        android:padding="2dp"
+        tools:context=".ui.main.adapter.MediaItemAdapter">
 
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
-        tools:text="Title" />
-</LinearLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_mediaThumb"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@mipmap/ic_launcher"
+                app:url="@{`https://image.tmdb.org/t/p/w185/`+mediaItem.posterPath}"/>
+
+            <ImageView
+                android:id="@+id/iv_videoThumb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:visible="@{mediaItem.video}"
+                app:srcCompat="@drawable/ic_baseline_play_circle"
+                tools:srcCompat="@drawable/ic_launcher_foreground"
+                tools:visibility="visible" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_mediaTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#333"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:padding="16dp"
+            android:text="@{mediaItem.title}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+            tools:text="@tools:sample/lorem" />
+    </LinearLayout>
+</layout>

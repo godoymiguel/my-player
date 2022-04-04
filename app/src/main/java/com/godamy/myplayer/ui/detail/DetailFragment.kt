@@ -10,7 +10,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.godamy.myplayer.R
-import com.godamy.myplayer.common.loadUrl
 import com.godamy.myplayer.databinding.FragmentDetailBinding
 import kotlinx.coroutines.launch
 
@@ -33,22 +32,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         // MainFragment e.g with without extension function
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collect { binding.updateUI(it) }
+                viewModel.state.collect { binding.mediaItem = it.mediaItem }
             }
         }
-    }
-
-    private fun FragmentDetailBinding.updateUI(state: DetailUiState) {
-        state.mediaItem.let {
-            toolbar.title = it.title
-            val background = it.backdropPath ?: it.posterPath
-            ivBackdropPath.loadUrl("$IMAGE_URL$background")
-            tvDetailSummary.text = it.overview
-            tvDetailInfo.setDetailInfo(it)
-        }
-    }
-
-    companion object {
-        private const val IMAGE_URL = "https://image.tmdb.org/t/p/w780/"
     }
 }
