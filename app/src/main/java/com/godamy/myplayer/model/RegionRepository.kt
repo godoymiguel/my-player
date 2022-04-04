@@ -1,24 +1,24 @@
 package com.godamy.myplayer.model
 
 import android.Manifest
+import android.app.Application
 import android.location.Geocoder
 import android.location.Location
-import androidx.appcompat.app.AppCompatActivity
 
-class RegionRepository(activity: AppCompatActivity) {
+class RegionRepository(application: Application) {
 
     // TODO IOC
-    private val locationDataSource: LocationDataSource = PlayServiceLocationDataSource(activity)
-    private val geocoder = Geocoder(activity)
+    private val locationDataSource: LocationDataSource = PlayServiceLocationDataSource(application)
+    private val geocoder = Geocoder(application)
 
     private val coarsePermisionChecker =
-        PermissionChecker(activity, Manifest.permission.ACCESS_COARSE_LOCATION)
+        PermissionChecker(application, Manifest.permission.ACCESS_COARSE_LOCATION)
 
     suspend fun findRegion(): String = findLastLocation().toRegion()
 
     // Set default location when is false
     private suspend fun findLastLocation(): Location? {
-        val success = coarsePermisionChecker.request()
+        val success = coarsePermisionChecker.check()
         return if (success) locationDataSource.findLastLocation() else null
     }
 

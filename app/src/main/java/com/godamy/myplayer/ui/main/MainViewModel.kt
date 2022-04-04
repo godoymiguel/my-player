@@ -17,26 +17,14 @@ class MainViewModel(
     private val _state = MutableStateFlow(MainUiState())
     val state: StateFlow<MainUiState> = _state.asStateFlow()
 
-    init {
-        refresh()
-    }
-
     private var mediaItems: List<MediaItem> = emptyList()
 
-    private fun refresh() {
+    fun onUiReady() {
         viewModelScope.launch {
             _state.value = MainUiState(loading = true)
             mediaItems = mediaItemRepository.finPopularMovies().results
             _state.value = MainUiState(mediaItem = mediaItems)
         }
-    }
-
-    fun onMediaItemClicked(mediaItem: MediaItem) {
-        _state.value = MainUiState(navigateTo = mediaItem)
-    }
-
-    fun onNavigationDone(){
-        _state.value = _state.value.copy(navigateTo = null)
     }
 
     fun updateItems(filter: Filter = Filter.None) {
