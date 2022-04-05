@@ -5,23 +5,24 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.godamy.myplayer.R
+import com.godamy.myplayer.common.app
 import com.godamy.myplayer.common.launchAndCollect
 import com.godamy.myplayer.databinding.FragmentMainBinding
-import com.godamy.myplayer.model.MediaItemRepository
+import com.godamy.myplayer.model.MediaRepository
 import com.godamy.myplayer.ui.main.adapter.MediaItemAdapter
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
     private val viewModel: MainViewModel by viewModels {
         MainViewModelFactory(
-            MediaItemRepository(
-                requireActivity().application
+            MediaRepository(
+                requireActivity().app
             )
         )
     }
 
     private lateinit var mainState: MainState
-    private val mediaItemAdapter = MediaItemAdapter { mainState.onMediaItemClicked(it) }
+    private val mediaItemAdapter = MediaItemAdapter { mainState.onMediaItemClicked(it.id) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

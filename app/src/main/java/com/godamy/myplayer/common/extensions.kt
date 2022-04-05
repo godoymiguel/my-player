@@ -19,6 +19,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.godamy.myplayer.App
 import com.godamy.myplayer.databinding.FragmentDetailBinding
 import com.godamy.myplayer.ui.detail.DetailUiState
 import kotlinx.coroutines.flow.Flow
@@ -53,7 +54,7 @@ fun SpannableStringBuilder.appendInfo(context: Context, stringRes: Int, value: S
 
 // e.g. update with function
 fun FragmentDetailBinding.updateUI(state: DetailUiState) {
-    state.mediaItem.let {
+    state.mediaItem?.let {
         toolbar.title = it.title
         val background = it.backdropPath ?: it.posterPath
         ivBackdropPath.loadUrl("https://image.tmdb.org/t/p/w780/$background")
@@ -98,3 +99,5 @@ fun <T> LifecycleOwner.launchAndCollect(
         }
     }
 }
+
+val Context.app: App get() = applicationContext as App

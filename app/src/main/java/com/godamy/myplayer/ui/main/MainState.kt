@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.godamy.myplayer.model.MediaItem
+import com.godamy.myplayer.model.database.MediaItem
 import com.godamy.myplayer.ui.common.PermissionRequester
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -23,8 +23,8 @@ class MainState(
         }
     }
 
-    fun onMediaItemClicked(mediaItem: MediaItem) {
-        val action = MainFragmentDirections.actionMainFragmentToDetailFragment(mediaItem)
+    fun onMediaItemClicked(mediaItemId: Int) {
+        val action = MainFragmentDirections.actionMainFragmentToDetailFragment(mediaItemId)
         navController.navigate(action)
         // with Activity
         // startActivity<DetailActivity>(DetailActivity.EXTRA_MOVIE to mediaItem)

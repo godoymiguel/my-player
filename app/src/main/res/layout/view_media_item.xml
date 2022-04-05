@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.godamy.myplayer.model.MediaItem" />
+        <import type="com.godamy.myplayer.model.database.MediaItem" />
         <variable
             name="mediaItem"
             type="MediaItem" />

@@ -6,7 +6,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.text.buildSpannedString
 import com.godamy.myplayer.R
 import com.godamy.myplayer.common.appendInfo
-import com.godamy.myplayer.model.MediaItem
+import com.godamy.myplayer.model.database.MediaItem
 
 class DetailInfoView @JvmOverloads constructor(
     context: Context,
@@ -14,7 +14,7 @@ class DetailInfoView @JvmOverloads constructor(
     defStyAttr: Int = 0
 ) : AppCompatTextView(context, attrs, defStyAttr) {
 
-    fun setDetailInfo(movie: MediaItem) = with(movie) {
+    fun setDetailInfo(mediaItem: MediaItem) = with(mediaItem) {
         // Spanned String para agregar mas de una linea en el mismo TextView
         text = buildSpannedString {
             appendInfo(context, R.string.original_language, originalLanguage.uppercase())

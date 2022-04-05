@@ -10,7 +10,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.godamy.myplayer.R
+import com.godamy.myplayer.common.app
 import com.godamy.myplayer.databinding.FragmentDetailBinding
+import com.godamy.myplayer.model.MediaRepository
 import kotlinx.coroutines.launch
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
@@ -18,7 +20,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private val safeArgs: DetailFragmentArgs by navArgs()
 
     private val viewModel: DetailViewModel by viewModels {
-        DetailViewModelFactory(requireNotNull(safeArgs.mediaItem))
+        DetailViewModelFactory(safeArgs.mediaItemId, MediaRepository(requireActivity().app))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,7 +34,9 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         // MainFragment e.g with without extension function
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collect { binding.mediaItem = it.mediaItem }
+                viewModel.state.collect { state ->
+                    state.mediaItem?.let { binding.mediaItem = it }
+                }
             }
         }
     }

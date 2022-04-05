@@ -1,7 +1,7 @@
 package com.godamy.myplayer.ui.detail
 
 import androidx.databinding.BindingAdapter
-import com.godamy.myplayer.model.MediaItem
+import com.godamy.myplayer.model.database.MediaItem
 
 @BindingAdapter("mediaItem")
 fun DetailInfoView.setDetailInfo(mediaItem: MediaItem?) {

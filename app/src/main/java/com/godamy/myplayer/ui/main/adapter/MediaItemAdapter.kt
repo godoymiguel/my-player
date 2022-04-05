@@ -1,14 +1,12 @@
 package com.godamy.myplayer.ui.main.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.godamy.myplayer.common.basicDiffUtil
-import com.godamy.myplayer.common.loadUrl
 import com.godamy.myplayer.databinding.ViewMediaItemBinding
-import com.godamy.myplayer.model.MediaItem
+import com.godamy.myplayer.model.database.MediaItem
 
 // ListAdapter used to manage recycle view list items
 class MediaItemAdapter(

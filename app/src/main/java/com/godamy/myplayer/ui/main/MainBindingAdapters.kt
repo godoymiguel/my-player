@@ -2,7 +2,7 @@ package com.godamy.myplayer.ui.main
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.godamy.myplayer.model.MediaItem
+import com.godamy.myplayer.model.database.MediaItem
 import com.godamy.myplayer.ui.main.adapter.MediaItemAdapter
 
 @BindingAdapter("items")

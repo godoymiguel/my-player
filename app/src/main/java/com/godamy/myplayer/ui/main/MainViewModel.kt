@@ -2,8 +2,8 @@ package com.godamy.myplayer.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.godamy.myplayer.model.MediaItem
-import com.godamy.myplayer.model.MediaItemRepository
+import com.godamy.myplayer.model.MediaRepository
+import com.godamy.myplayer.model.database.MediaItem
 import com.godamy.myplayer.ui.common.Filter
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class MainViewModel(
-    private val mediaItemRepository: MediaItemRepository
+    private val mediaRepository: MediaRepository
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(MainUiState())
@@ -19,11 +19,19 @@ class MainViewModel(
 
     private var mediaItems: List<MediaItem> = emptyList()
 
+    init {
+        viewModelScope.launch {
+            mediaRepository.popularMovies.collect {
+                mediaItems = it
+                _state.value = MainUiState(mediaItem = mediaItems)
+            }
+        }
+    }
+
     fun onUiReady() {
         viewModelScope.launch {
             _state.value = MainUiState(loading = true)
-            mediaItems = mediaItemRepository.finPopularMovies().results
-            _state.value = MainUiState(mediaItem = mediaItems)
+            mediaRepository.finPopularMovies()
         }
     }
 

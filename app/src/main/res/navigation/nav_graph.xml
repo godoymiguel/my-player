@@ -24,7 +24,8 @@
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
         <argument
-            android:name="mediaItem"
-            app:argType="com.godamy.myplayer.model.MediaItem" />
+            android:name="mediaItemId"
+            app:argType="integer"
+            android:defaultValue="-1" />
     </fragment>
 </navigation>
