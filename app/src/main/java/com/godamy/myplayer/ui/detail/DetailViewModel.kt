@@ -20,4 +20,12 @@ class DetailViewModel(mediaItemId: Int, private val mediaRepository: MediaReposi
             }
         }
     }
+
+    fun onFavoriteClicked() {
+        viewModelScope.launch {
+            _state.value.mediaItem?.let {
+                mediaRepository.switchFavorite(it)
+            }
+        }
+    }
 }

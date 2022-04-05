@@ -21,6 +21,11 @@ class MediaRepository(application: App) {
 
     fun findById(id: Int) = localDataSource.findById(id)
 
+    suspend fun switchFavorite(mediaItem: MediaItem) {
+        val updateMediaItem = mediaItem.copy(favorite = !mediaItem.favorite)
+        localDataSource.save(updateMediaItem)
+    }
+
     private fun MediaItemRemote.toLocalModel(): MediaItem = MediaItem(
         id,
         backdropPath,
@@ -32,6 +37,7 @@ class MediaRepository(application: App) {
         releaseDate,
         title,
         video,
-        voteAverage
+        voteAverage,
+        false
     )
 }

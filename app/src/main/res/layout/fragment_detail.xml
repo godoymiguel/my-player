@@ -86,8 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_favorite_border"
-            android:visibility="gone"
+            android:src="@{mediaItem.favorite ? @drawable/ic_favorite_on : @drawable/ic_favorite_off}"
             app:layout_anchor="@id/appbar"
             app:layout_anchorGravity="end|bottom" />
 

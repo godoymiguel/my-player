@@ -16,8 +16,8 @@ interface MediaItemDao {
     suspend fun mediaItemCount(): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun create(mediaItem: List<MediaItem>)
+    suspend fun save(mediaItem: List<MediaItem>)
 
-    @Update
-    suspend fun update(mediaItem: MediaItem)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun save(mediaItem: MediaItem)
 }

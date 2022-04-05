@@ -18,5 +18,6 @@ data class MediaItem(
     val releaseDate: String,
     val title: String,
     val video: Boolean,
-    val voteAverage: Double
+    val voteAverage: Double,
+    val favorite: Boolean
 ) : Parcelable

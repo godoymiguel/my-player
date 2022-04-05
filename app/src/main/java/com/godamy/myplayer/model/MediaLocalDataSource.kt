@@ -10,7 +10,10 @@ class MediaLocalDataSource(private val dao: MediaItemDao) {
     suspend fun isEmpty(): Boolean = dao.mediaItemCount() == 0
 
     suspend fun save(mediaItem: List<MediaItem>) {
-        dao.create(mediaItem)
+        dao.save(mediaItem)
+    }
+    suspend fun save(mediaItem: MediaItem) {
+        dao.save(mediaItem)
     }
 
     fun findById(id: Int) = dao.findById(id)

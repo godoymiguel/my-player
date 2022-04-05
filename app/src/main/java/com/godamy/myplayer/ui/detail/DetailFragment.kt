@@ -27,10 +27,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentDetailBinding.bind(view)
 
-        binding.toolbar.setNavigationOnClickListener {
-            findNavController().popBackStack()
-        }
-
         // MainFragment e.g with without extension function
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -39,5 +35,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 }
             }
         }
+
+        binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
+        binding.btnFab.setOnClickListener { viewModel.onFavoriteClicked() }
     }
 }
