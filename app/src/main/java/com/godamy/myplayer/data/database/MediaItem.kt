@@ -1,4 +1,4 @@
-package com.godamy.myplayer.model.database
+package com.godamy.myplayer.data.database
 
 import android.os.Parcelable
 import androidx.room.Entity

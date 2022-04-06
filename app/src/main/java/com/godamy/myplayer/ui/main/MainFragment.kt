@@ -7,17 +7,19 @@ import androidx.fragment.app.viewModels
 import com.godamy.myplayer.R
 import com.godamy.myplayer.common.app
 import com.godamy.myplayer.common.launchAndCollect
+import com.godamy.myplayer.data.MediaRepository
 import com.godamy.myplayer.databinding.FragmentMainBinding
-import com.godamy.myplayer.model.MediaRepository
+import com.godamy.myplayer.usecases.GetPopularMoviesUserCase
+import com.godamy.myplayer.usecases.RequestPopularMoviesUseCase
 import com.godamy.myplayer.ui.main.adapter.MediaItemAdapter
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
     private val viewModel: MainViewModel by viewModels {
+        val repository = MediaRepository(requireActivity().app)
         MainViewModelFactory(
-            MediaRepository(
-                requireActivity().app
-            )
+            GetPopularMoviesUserCase(repository),
+            RequestPopularMoviesUseCase(repository)
         )
     }
 

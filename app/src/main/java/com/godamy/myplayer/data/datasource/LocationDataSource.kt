@@ -1,4 +1,4 @@
-package com.godamy.myplayer.model.datasource
+package com.godamy.myplayer.data.datasource
 
 import android.location.Location
 

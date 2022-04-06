@@ -11,8 +11,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.godamy.myplayer.R
 import com.godamy.myplayer.common.app
+import com.godamy.myplayer.data.MediaRepository
 import com.godamy.myplayer.databinding.FragmentDetailBinding
-import com.godamy.myplayer.model.MediaRepository
+import com.godamy.myplayer.usecases.FindMovieUseCase
+import com.godamy.myplayer.usecases.SwitchFavoriteUseCase
 import kotlinx.coroutines.launch
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
@@ -20,7 +22,12 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private val safeArgs: DetailFragmentArgs by navArgs()
 
     private val viewModel: DetailViewModel by viewModels {
-        DetailViewModelFactory(safeArgs.mediaItemId, MediaRepository(requireActivity().app))
+        val repository = MediaRepository(requireActivity().app)
+        DetailViewModelFactory(
+            safeArgs.mediaItemId,
+            FindMovieUseCase(repository),
+            SwitchFavoriteUseCase(repository)
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

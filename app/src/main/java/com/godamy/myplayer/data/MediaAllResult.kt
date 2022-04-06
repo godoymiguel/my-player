@@ -1,4 +1,4 @@
-package com.godamy.myplayer.model
+package com.godamy.myplayer.data
 
 import com.google.gson.annotations.SerializedName
 

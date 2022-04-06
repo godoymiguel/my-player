@@ -1,9 +1,9 @@
-package com.godamy.myplayer.model
+package com.godamy.myplayer.data
 
 import android.annotation.SuppressLint
 import android.app.Application
 import android.location.Location
-import com.godamy.myplayer.model.datasource.LocationDataSource
+import com.godamy.myplayer.data.datasource.LocationDataSource
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume

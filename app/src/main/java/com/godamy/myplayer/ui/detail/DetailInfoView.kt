@@ -6,7 +6,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.text.buildSpannedString
 import com.godamy.myplayer.R
 import com.godamy.myplayer.common.appendInfo
-import com.godamy.myplayer.model.database.MediaItem
+import com.godamy.myplayer.data.database.MediaItem
 
 class DetailInfoView @JvmOverloads constructor(
     context: Context,

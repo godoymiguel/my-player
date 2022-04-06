@@ -1,4 +1,4 @@
-package com.godamy.myplayer.model
+package com.godamy.myplayer.data
 
 import android.app.Application
 import android.content.pm.PackageManager

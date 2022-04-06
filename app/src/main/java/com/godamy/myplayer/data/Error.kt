@@ -1,4 +1,4 @@
-package com.godamy.myplayer.model
+package com.godamy.myplayer.data
 
 import retrofit2.HttpException
 import java.io.IOException

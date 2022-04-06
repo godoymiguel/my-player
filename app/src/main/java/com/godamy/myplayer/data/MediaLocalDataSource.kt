@@ -1,7 +1,7 @@
-package com.godamy.myplayer.model
+package com.godamy.myplayer.data
 
-import com.godamy.myplayer.model.database.MediaItem
-import com.godamy.myplayer.model.database.MediaItemDao
+import com.godamy.myplayer.data.database.MediaItem
+import com.godamy.myplayer.data.database.MediaItemDao
 
 class MediaLocalDataSource(private val dao: MediaItemDao) {
 

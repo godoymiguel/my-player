@@ -2,7 +2,7 @@ package com.godamy.myplayer
 
 import android.app.Application
 import androidx.room.Room
-import com.godamy.myplayer.model.database.MediaItemDataBase
+import com.godamy.myplayer.data.database.MediaItemDataBase
 
 class App : Application() {
     lateinit var db: MediaItemDataBase

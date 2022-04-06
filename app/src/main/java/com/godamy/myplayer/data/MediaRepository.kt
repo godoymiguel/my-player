@@ -1,8 +1,8 @@
-package com.godamy.myplayer.model
+package com.godamy.myplayer.data
 
 import com.godamy.myplayer.App
 import com.godamy.myplayer.R
-import com.godamy.myplayer.model.database.MediaItem
+import com.godamy.myplayer.data.database.MediaItem
 
 class MediaRepository(application: App) {
 
@@ -12,9 +12,9 @@ class MediaRepository(application: App) {
 
     val popularMovies = localDataSource.mediaItems
 
-    suspend fun finPopularMovies(): Error? = tryCall {
+    suspend fun requestPopularMovies(): Error? = tryCall {
         if (localDataSource.isEmpty()) {
-            val mediaItems = remoteDataSource.finPopularMovies(regionRepository.findRegion())
+            val mediaItems = remoteDataSource.requestPopularMovies(regionRepository.findRegion())
             localDataSource.save(mediaItems.results.map { it.toLocalModel() })
         }
     }

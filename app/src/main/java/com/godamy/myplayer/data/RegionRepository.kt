@@ -1,10 +1,10 @@
-package com.godamy.myplayer.model
+package com.godamy.myplayer.data
 
 import android.Manifest
 import android.app.Application
 import android.location.Geocoder
 import android.location.Location
-import com.godamy.myplayer.model.datasource.LocationDataSource
+import com.godamy.myplayer.data.datasource.LocationDataSource
 
 class RegionRepository(application: Application) {
 
