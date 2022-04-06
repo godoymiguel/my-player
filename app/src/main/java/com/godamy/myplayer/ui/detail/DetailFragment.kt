@@ -12,7 +12,12 @@ import androidx.navigation.fragment.navArgs
 import com.godamy.myplayer.R
 import com.godamy.myplayer.common.app
 import com.godamy.myplayer.data.MediaRepository
+import com.godamy.myplayer.data.RegionRepository
 import com.godamy.myplayer.databinding.FragmentDetailBinding
+import com.godamy.myplayer.framework.AndroidPermissionChecker
+import com.godamy.myplayer.framework.datasource.MediaItemRoomDataSource
+import com.godamy.myplayer.framework.datasource.MediaItemServerDataSource
+import com.godamy.myplayer.framework.datasource.PlayServiceLocationDataSource
 import com.godamy.myplayer.usecases.FindMovieUseCase
 import com.godamy.myplayer.usecases.SwitchFavoriteUseCase
 import kotlinx.coroutines.launch
@@ -22,7 +27,13 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private val safeArgs: DetailFragmentArgs by navArgs()
 
     private val viewModel: DetailViewModel by viewModels {
-        val repository = MediaRepository(requireActivity().app)
+        val application = requireActivity().app
+        val locationDataSource = PlayServiceLocationDataSource(application)
+        val permissionChecker = AndroidPermissionChecker(application)
+        val regionRepository = RegionRepository(locationDataSource, permissionChecker)
+        val localDataSource = MediaItemRoomDataSource(application.db.mediaItemDao())
+        val remoteDataSource = MediaItemServerDataSource(getString(R.string.api_key))
+        val repository = MediaRepository(regionRepository, localDataSource, remoteDataSource)
         DetailViewModelFactory(
             safeArgs.mediaItemId,
             FindMovieUseCase(repository),

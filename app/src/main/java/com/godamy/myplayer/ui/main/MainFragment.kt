@@ -8,7 +8,12 @@ import com.godamy.myplayer.R
 import com.godamy.myplayer.common.app
 import com.godamy.myplayer.common.launchAndCollect
 import com.godamy.myplayer.data.MediaRepository
+import com.godamy.myplayer.data.RegionRepository
 import com.godamy.myplayer.databinding.FragmentMainBinding
+import com.godamy.myplayer.framework.AndroidPermissionChecker
+import com.godamy.myplayer.framework.datasource.MediaItemRoomDataSource
+import com.godamy.myplayer.framework.datasource.MediaItemServerDataSource
+import com.godamy.myplayer.framework.datasource.PlayServiceLocationDataSource
 import com.godamy.myplayer.ui.main.adapter.MediaItemAdapter
 import com.godamy.myplayer.usecases.GetPopularMoviesUserCase
 import com.godamy.myplayer.usecases.RequestPopularMoviesUseCase
@@ -16,7 +21,13 @@ import com.godamy.myplayer.usecases.RequestPopularMoviesUseCase
 class MainFragment : Fragment(R.layout.fragment_main) {
 
     private val viewModel: MainViewModel by viewModels {
-        val repository = MediaRepository(requireActivity().app)
+        val application = requireActivity().app
+        val locationDataSource = PlayServiceLocationDataSource(application)
+        val permissionChecker = AndroidPermissionChecker(application)
+        val regionRepository = RegionRepository(locationDataSource, permissionChecker)
+        val localDataSource = MediaItemRoomDataSource(application.db.mediaItemDao())
+        val remoteDataSource = MediaItemServerDataSource(getString(R.string.api_key))
+        val repository = MediaRepository(regionRepository, localDataSource, remoteDataSource)
         MainViewModelFactory(
             GetPopularMoviesUserCase(repository),
             RequestPopularMoviesUseCase(repository)
