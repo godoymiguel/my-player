@@ -5,7 +5,7 @@
 
     <data>
         <import type="java.util.List" />
-        <import type="com.godamy.myplayer.data.database.MediaItem" />
+        <import type="com.godamy.myplayer.domain.MediaItem" />
         <variable
             name="loading"
             type="boolean" />

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.godamy.myplayer.data.database.MediaItem" />
+        <import type="com.godamy.myplayer.domain.MediaItem" />
         <variable
             name="mediaItem"
             type="MediaItem" />
@@ -27,7 +27,7 @@
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
                 app:srcCompat="@mipmap/ic_launcher"
-                app:url="@{`https://image.tmdb.org/t/p/w185/`+mediaItem.posterPath}"/>
+                app:url="@{mediaItem.posterPath}"/>
 
             <ImageView
                 android:id="@+id/iv_videoThumb"

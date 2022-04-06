@@ -1,14 +1,7 @@
-package com.godamy.myplayer.data.database
+package com.godamy.myplayer.domain
 
-import android.os.Parcelable
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import kotlinx.android.parcel.Parcelize
-
-@Parcelize
-@Entity
 data class MediaItem(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    val id: Int,
     val backdropPath: String?,
     val originalLanguage: String,
     val originalTitle: String,
@@ -20,4 +13,4 @@ data class MediaItem(
     val video: Boolean,
     val voteAverage: Double,
     val favorite: Boolean
-) : Parcelable
+)

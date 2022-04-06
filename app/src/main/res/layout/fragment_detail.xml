@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.godamy.myplayer.data.database.MediaItem" />
+        <import type="com.godamy.myplayer.domain.MediaItem" />
         <variable
             name="mediaItem"
             type="MediaItem" />
@@ -37,7 +37,7 @@
                     android:scaleType="centerCrop"
                     android:fitsSystemWindows="true"
                     app:layout_collapseMode="parallax"
-                    app:url="@{`https://image.tmdb.org/t/p/w780/` + mediaItem.backdropPath}"
+                    app:url="@{mediaItem.backdropPath}"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
                 <androidx.appcompat.widget.Toolbar
