@@ -1,6 +1,6 @@
 package com.godamy.myplayer.ui.main
 
-import com.godamy.myplayer.data.Error
+import com.godamy.myplayer.domain.Error
 import com.godamy.myplayer.domain.MediaItem
 
 data class MainUiState(

@@ -1,4 +1,4 @@
-package com.godamy.myplayer.common
+package com.godamy.myplayer.domain
 
 import android.util.Log
 

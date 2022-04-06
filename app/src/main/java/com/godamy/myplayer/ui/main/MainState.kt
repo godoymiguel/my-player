@@ -7,7 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.godamy.myplayer.R
-import com.godamy.myplayer.data.Error
+import com.godamy.myplayer.domain.Error
 import com.godamy.myplayer.ui.common.PermissionRequester
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

@@ -1,6 +1,5 @@
-package com.godamy.myplayer.data.apiservice
+package com.godamy.myplayer.framework.server
 
-import com.godamy.myplayer.data.MediaAllResult
 import retrofit2.http.GET
 import retrofit2.http.Query
 

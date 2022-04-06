@@ -1,9 +1,7 @@
-package com.godamy.myplayer.framework.datasource
+package com.godamy.myplayer.framework.database
 
 import com.godamy.myplayer.data.datasource.MediaItemLocalDataSource
 import com.godamy.myplayer.domain.MediaItem
-import com.godamy.myplayer.framework.database.MediaItemDao
-import com.godamy.myplayer.framework.database.MediaItemEntity
 import kotlinx.coroutines.flow.map
 
 class MediaItemRoomDataSource(private val dao: MediaItemDao) : MediaItemLocalDataSource {

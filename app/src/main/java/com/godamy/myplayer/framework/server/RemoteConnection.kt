@@ -1,4 +1,4 @@
-package com.godamy.myplayer.data.apiservice
+package com.godamy.myplayer.framework.server
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

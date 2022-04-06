@@ -1,7 +1,5 @@
-package com.godamy.myplayer.framework.datasource
+package com.godamy.myplayer.framework.server
 
-import com.godamy.myplayer.data.MediaItemRemote
-import com.godamy.myplayer.data.apiservice.RemoteConnection
 import com.godamy.myplayer.data.datasource.MediaItemRemoteDataSource
 import com.godamy.myplayer.domain.MediaItem
 

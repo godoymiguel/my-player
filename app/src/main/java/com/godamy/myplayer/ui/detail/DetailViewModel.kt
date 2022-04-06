@@ -2,7 +2,7 @@ package com.godamy.myplayer.ui.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.godamy.myplayer.data.toError
+import com.godamy.myplayer.domain.toError
 import com.godamy.myplayer.usecases.FindMovieUseCase
 import com.godamy.myplayer.usecases.SwitchFavoriteUseCase
 import kotlinx.coroutines.flow.*

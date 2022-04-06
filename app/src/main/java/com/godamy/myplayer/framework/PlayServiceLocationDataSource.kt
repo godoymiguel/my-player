@@ -1,4 +1,4 @@
-package com.godamy.myplayer.framework.datasource
+package com.godamy.myplayer.framework
 
 import android.annotation.SuppressLint
 import android.app.Application
