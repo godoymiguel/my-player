@@ -5,6 +5,7 @@ import android.app.Application
 import android.location.Geocoder
 import android.location.Location
 import com.godamy.myplayer.data.datasource.LocationDataSource
+import com.godamy.myplayer.framework.datasource.PlayServiceLocationDataSource
 
 class RegionRepository(application: Application) {
 

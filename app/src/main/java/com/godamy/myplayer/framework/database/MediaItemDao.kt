@@ -1,4 +1,4 @@
-package com.godamy.myplayer.data.database
+package com.godamy.myplayer.framework.database
 
 import androidx.room.Dao
 import androidx.room.Insert

@@ -1,25 +1,26 @@
-package com.godamy.myplayer.data
+package com.godamy.myplayer.framework.datasource
 
-import com.godamy.myplayer.data.database.MediaItemDao
-import com.godamy.myplayer.data.database.MediaItemEntity
+import com.godamy.myplayer.data.datasource.MediaItemLocalDataSource
 import com.godamy.myplayer.domain.MediaItem
+import com.godamy.myplayer.framework.database.MediaItemDao
+import com.godamy.myplayer.framework.database.MediaItemEntity
 import kotlinx.coroutines.flow.map
 
-class MediaLocalDataSource(private val dao: MediaItemDao) {
+class MediaItemRoomDataSource(private val dao: MediaItemDao) : MediaItemLocalDataSource {
 
-    val mediaItems = dao.getAll().map { it.toDomainModel() }
+    override val mediaItems = dao.getAll().map { it.toDomainModel() }
 
-    suspend fun isEmpty(): Boolean = dao.mediaItemCount() == 0
+    override suspend fun isEmpty(): Boolean = dao.mediaItemCount() == 0
 
-    suspend fun save(mediaItems: List<MediaItem>) {
+    override suspend fun save(mediaItems: List<MediaItem>) {
         dao.save(mediaItems.toDbEntity())
     }
 
-    suspend fun save(mediaItem: MediaItem) {
+    override suspend fun save(mediaItem: MediaItem) {
         dao.save(listOf(mediaItem.toDbEntity()))
     }
 
-    fun findById(id: Int) = dao.findById(id).map { it.toDomainModel() }
+    override fun findById(id: Int) = dao.findById(id).map { it.toDomainModel() }
 
     private fun List<MediaItemEntity>.toDomainModel(): List<MediaItem> = map { it.toDomainModel() }
 

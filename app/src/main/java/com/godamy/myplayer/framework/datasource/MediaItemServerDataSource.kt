@@ -1,11 +1,13 @@
-package com.godamy.myplayer.data
+package com.godamy.myplayer.framework.datasource
 
+import com.godamy.myplayer.data.MediaItemRemote
 import com.godamy.myplayer.data.apiservice.RemoteConnection
+import com.godamy.myplayer.data.datasource.MediaItemRemoteDataSource
 import com.godamy.myplayer.domain.MediaItem
 
-class MediaRemoteDataSource(private val apiKey: String) {
+class MediaItemServerDataSource(private val apiKey: String) : MediaItemRemoteDataSource {
 
-    suspend fun requestPopularMovies(region: String): List<MediaItem> =
+    override suspend fun requestPopularMovies(region: String): List<MediaItem> =
         RemoteConnection.service.listPopularMovies(apiKey, region).results.toDomainModel()
 
     private fun List<MediaItemRemote>.toDomainModel(): List<MediaItem> = map { it.toDomainModel() }

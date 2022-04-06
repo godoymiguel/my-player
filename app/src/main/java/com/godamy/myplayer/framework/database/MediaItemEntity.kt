@@ -1,4 +1,4 @@
-package com.godamy.myplayer.data.database
+package com.godamy.myplayer.framework.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
