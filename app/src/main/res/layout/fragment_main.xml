@@ -12,6 +12,9 @@
         <variable
             name="mediaItems"
             type="List&lt;MediaItem>" />
+        <variable
+            name="error"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,17 +53,29 @@
             app:layout_constraintTop_toBottomOf="@id/appBarLayout"
             app:spanCount="3"
             app:items="@{mediaItems}"
+            app:visible="@{error == null}"
             tools:listitem="@layout/view_media_item" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:visible="@{loading}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{error}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+            android:textColor="@color/design_default_color_error"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/unknown_error" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

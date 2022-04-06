@@ -34,9 +34,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
 
         // DetailFragment e.g. without extension function
-        viewLifecycleOwner.launchAndCollect(viewModel.state) {
-            binding.loading = it.loading
-            binding.mediaItems = it.mediaItem
+        viewLifecycleOwner.launchAndCollect(viewModel.state) { state ->
+            binding.loading = state.loading
+            binding.mediaItems = state.mediaItem
+            binding.error = state.error?.let(mainState::errorToString)
         }
 
         mainState.requestLocationPermission {
