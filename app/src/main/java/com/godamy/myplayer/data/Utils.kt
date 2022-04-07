@@ -1,13 +1,8 @@
-package com.godamy.myplayer.domain
+package com.godamy.myplayer.data
 
+import com.godamy.myplayer.domain.Error
 import retrofit2.HttpException
 import java.io.IOException
-
-sealed interface Error {
-    class Server(val code: Int) : Error
-    object Connectivity : Error
-    class Unknown(val message: String) : Error
-}
 
 fun Throwable.toError(): Error = when (this) {
     is IOException -> Error.Connectivity

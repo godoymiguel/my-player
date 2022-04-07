@@ -162,3 +162,32 @@ fun doOp(x: Int, op: Op): Int = when (op) {
     is Op.Sub -> x - op.value
     is Op.Inc -> x + 1
 }
+
+// old functions
+//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+//        menuInflater.inflate(R.menu.main, menu)
+//        return super.onCreateOptionsMenu(menu)
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        val filter = when (item.itemId) {
+//            R.id.filter_photos -> Filter.ByType(false)
+//            R.id.filter_videos -> Filter.ByType(true)
+//            else -> Filter.None
+//        }
+//
+//        viewModel.updateItems(filter)
+//        return super.onOptionsItemSelected(item)
+//    }
+
+//    fun updateItems(filter: Filter = Filter.None) {
+//        _state.value = _state.value.copy(loading = true)
+//        _state.value = MainUiState(
+//            mediaItem = mediaItems.let { media ->
+//                when (filter) {
+//                    Filter.None -> media
+//                    is Filter.ByType -> media.filter { it.video == filter.video }
+//                }
+//            }
+//        )
+//    }

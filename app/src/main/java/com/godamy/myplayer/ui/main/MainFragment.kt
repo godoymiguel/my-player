@@ -57,20 +57,4 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             viewModel.onUiReady()
         }
     }
-
-    //    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        menuInflater.inflate(R.menu.main, menu)
-//        return super.onCreateOptionsMenu(menu)
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        val filter = when (item.itemId) {
-//            R.id.filter_photos -> Filter.ByType(false)
-//            R.id.filter_videos -> Filter.ByType(true)
-//            else -> Filter.None
-//        }
-//
-//        viewModel.updateItems(filter)
-//        return super.onOptionsItemSelected(item)
-//    }
 }
