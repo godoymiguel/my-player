@@ -7,8 +7,8 @@ interface Logger {
     val tag: String
         get() = javaClass.simpleName
 
-    fun logD(message: String) {
-        Log.d(tag, message)
+    fun logI(message: String) {
+        Log.i(tag, message)
     }
 
     fun logE(message: String) {

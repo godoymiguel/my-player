@@ -4,12 +4,14 @@ import arrow.core.Either
 import com.godamy.myplayer.data.datasource.MediaItemRemoteDataSource
 import com.godamy.myplayer.domain.Error
 import com.godamy.myplayer.domain.MediaItem
+import com.godamy.myplayer.framework.common.Logger
 import com.godamy.myplayer.framework.common.tryCall
 
-class MediaItemServerDataSource(private val apiKey: String) : MediaItemRemoteDataSource {
+class MediaItemServerDataSource(private val apiKey: String) : MediaItemRemoteDataSource, Logger {
 
     override suspend fun requestPopularMovies(region: String): Either<Error, List<MediaItem>> =
         tryCall {
+            logI("Region: $region")
             RemoteConnection.service.listPopularMovies(
                 apiKey,
                 region
