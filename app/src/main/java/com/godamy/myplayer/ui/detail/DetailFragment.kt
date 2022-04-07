@@ -10,12 +10,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.godamy.myplayer.R
-import com.godamy.myplayer.common.app
 import com.godamy.myplayer.data.MediaRepository
 import com.godamy.myplayer.data.RegionRepository
 import com.godamy.myplayer.databinding.FragmentDetailBinding
 import com.godamy.myplayer.framework.AndroidPermissionChecker
 import com.godamy.myplayer.framework.PlayServiceLocationDataSource
+import com.godamy.myplayer.framework.common.app
 import com.godamy.myplayer.framework.database.MediaItemRoomDataSource
 import com.godamy.myplayer.framework.server.MediaItemServerDataSource
 import com.godamy.myplayer.usecases.FindMovieUseCase

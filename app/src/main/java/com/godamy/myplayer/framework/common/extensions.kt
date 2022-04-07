@@ -1,4 +1,4 @@
-package com.godamy.myplayer.common
+package com.godamy.myplayer.framework.common
 
 import android.app.Activity
 import android.content.Context

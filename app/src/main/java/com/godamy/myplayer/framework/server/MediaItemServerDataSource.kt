@@ -1,12 +1,20 @@
 package com.godamy.myplayer.framework.server
 
+import arrow.core.Either
 import com.godamy.myplayer.data.datasource.MediaItemRemoteDataSource
+import com.godamy.myplayer.domain.Error
 import com.godamy.myplayer.domain.MediaItem
+import com.godamy.myplayer.framework.common.tryCall
 
 class MediaItemServerDataSource(private val apiKey: String) : MediaItemRemoteDataSource {
 
-    override suspend fun requestPopularMovies(region: String): List<MediaItem> =
-        RemoteConnection.service.listPopularMovies(apiKey, region).results.toDomainModel()
+    override suspend fun requestPopularMovies(region: String): Either<Error, List<MediaItem>> =
+        tryCall {
+            RemoteConnection.service.listPopularMovies(
+                apiKey,
+                region
+            ).results.toDomainModel()
+        }
 
     private fun List<MediaItemRemote>.toDomainModel(): List<MediaItem> = map { it.toDomainModel() }
 

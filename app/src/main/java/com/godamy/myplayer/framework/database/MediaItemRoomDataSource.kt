@@ -1,7 +1,9 @@
 package com.godamy.myplayer.framework.database
 
 import com.godamy.myplayer.data.datasource.MediaItemLocalDataSource
+import com.godamy.myplayer.domain.Error
 import com.godamy.myplayer.domain.MediaItem
+import com.godamy.myplayer.framework.common.tryCall
 import kotlinx.coroutines.flow.map
 
 class MediaItemRoomDataSource(private val dao: MediaItemDao) : MediaItemLocalDataSource {
@@ -10,13 +12,13 @@ class MediaItemRoomDataSource(private val dao: MediaItemDao) : MediaItemLocalDat
 
     override suspend fun isEmpty(): Boolean = dao.mediaItemCount() == 0
 
-    override suspend fun save(mediaItems: List<MediaItem>) {
-        dao.save(mediaItems.toDbEntity())
-    }
-
-    override suspend fun save(mediaItem: MediaItem) {
-        dao.save(listOf(mediaItem.toDbEntity()))
-    }
+    override suspend fun save(mediaItems: List<MediaItem>): Error? =
+        tryCall {
+            dao.save(mediaItems.toDbEntity())
+        }.fold(
+            ifLeft = { it },
+            ifRight = { null }
+        )
 
     override fun findById(id: Int) = dao.findById(id).map { it.toDomainModel() }
 

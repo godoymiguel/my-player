@@ -12,18 +12,21 @@ class MediaRepository(
 ) {
     val popularMovies = localDataSource.mediaItems
 
-    suspend fun requestPopularMovies(): Error? = tryCall {
+    suspend fun requestPopularMovies(): Error? {
         if (localDataSource.isEmpty()) {
             val region = regionRepository.findLastRegion()
             val mediaItems = remoteDataSource.requestPopularMovies(region)
-            localDataSource.save(mediaItems)
+            mediaItems.fold(ifLeft = { return it }) {
+                localDataSource.save(it)
+            }
         }
+        return null
     }
 
     fun findById(id: Int) = localDataSource.findById(id)
 
-    suspend fun switchFavorite(mediaItem: MediaItem): Error? = tryCall {
+    suspend fun switchFavorite(mediaItem: MediaItem): Error? {
         val updateMediaItem = mediaItem.copy(favorite = !mediaItem.favorite)
-        localDataSource.save(updateMediaItem)
+        return localDataSource.save(listOf(updateMediaItem))
     }
 }
