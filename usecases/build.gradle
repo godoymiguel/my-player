@@ -10,9 +10,8 @@ java {
 
 dependencies {
     implementation project(':domain')
+    implementation project(':data')
 
     // https://github.com/Kotlin/kotlinx.coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
-
-    implementation 'io.arrow-kt:arrow-core:1.0.6-alpha.1'
 }

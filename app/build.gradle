@@ -41,6 +41,7 @@ android {
 dependencies {
     implementation project(':domain')
     implementation project(':data')
+    implementation project(':usecases')
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -49,27 +50,27 @@ dependencies {
 
     implementation 'com.google.android.material:material:1.5.0'
 
-//    https://github.com/bumptech/glide
+    //  https://github.com/bumptech/glide
     implementation 'com.github.bumptech.glide:glide:4.13.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt 'com.github.bumptech.glide:compiler:4.13.1'
 
-//    https://square.github.io/retrofit/
+    // https://square.github.io/retrofit/
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.6'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
-//    https://developer.android.com/kotlin/ktx
+    // https://developer.android.com/kotlin/ktx
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-alpha06'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0-alpha06'
 
     implementation 'androidx.activity:activity-ktx:1.6.0-alpha01'
     implementation 'androidx.fragment:fragment-ktx:1.5.0-alpha05'
 
-//    https://developers.google.com/android/guides/setup
+    // https://developers.google.com/android/guides/setup
     implementation 'com.google.android.gms:play-services-location:19.0.1'
 
-//    https://github.com/Kotlin/kotlinx.coroutines
+    // https://github.com/Kotlin/kotlinx.coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
 
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
@@ -79,6 +80,7 @@ dependencies {
     implementation 'androidx.room:room-ktx:2.4.2'
     kapt 'androidx.room:room-compiler:2.4.2'
 
+    // Either<>
     implementation 'io.arrow-kt:arrow-core:1.0.6-alpha.1'
 
     testImplementation 'junit:junit:4.13.2'
