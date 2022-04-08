@@ -10,10 +10,10 @@ import com.godamy.myplayer.data.RegionRepository
 import com.godamy.myplayer.databinding.FragmentMainBinding
 import com.godamy.myplayer.framework.AndroidPermissionChecker
 import com.godamy.myplayer.framework.PlayServiceLocationDataSource
-import com.godamy.myplayer.framework.common.app
-import com.godamy.myplayer.framework.common.launchAndCollect
 import com.godamy.myplayer.framework.database.MediaItemRoomDataSource
 import com.godamy.myplayer.framework.server.MediaItemServerDataSource
+import com.godamy.myplayer.ui.common.app
+import com.godamy.myplayer.ui.common.launchAndCollect
 import com.godamy.myplayer.ui.main.adapter.MediaItemAdapter
 import com.godamy.myplayer.usecases.GetPopularMoviesUserCase
 import com.godamy.myplayer.usecases.RequestPopularMoviesUseCase

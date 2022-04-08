@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.godamy.myplayer.databinding.ViewMediaItemBinding
 import com.godamy.myplayer.domain.MediaItem
-import com.godamy.myplayer.framework.common.basicDiffUtil
+import com.godamy.myplayer.ui.common.basicDiffUtil
 
 // ListAdapter used to manage recycle view list items
 class MediaItemAdapter(

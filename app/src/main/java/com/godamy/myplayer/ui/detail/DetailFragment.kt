@@ -15,9 +15,9 @@ import com.godamy.myplayer.data.RegionRepository
 import com.godamy.myplayer.databinding.FragmentDetailBinding
 import com.godamy.myplayer.framework.AndroidPermissionChecker
 import com.godamy.myplayer.framework.PlayServiceLocationDataSource
-import com.godamy.myplayer.framework.common.app
 import com.godamy.myplayer.framework.database.MediaItemRoomDataSource
 import com.godamy.myplayer.framework.server.MediaItemServerDataSource
+import com.godamy.myplayer.ui.common.app
 import com.godamy.myplayer.usecases.FindMovieUseCase
 import com.godamy.myplayer.usecases.SwitchFavoriteUseCase
 import kotlinx.coroutines.launch

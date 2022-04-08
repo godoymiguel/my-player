@@ -3,7 +3,6 @@ package com.godamy.myplayer.ui.common
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.godamy.myplayer.framework.common.loadUrl
 
 @BindingAdapter("url")
 fun ImageView.bindUrl(url: String?) {
