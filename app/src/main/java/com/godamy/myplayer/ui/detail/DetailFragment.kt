@@ -12,13 +12,20 @@ import androidx.navigation.fragment.navArgs
 import com.godamy.myplayer.R
 import com.godamy.myplayer.databinding.FragmentDetailBinding
 import com.godamy.myplayer.ui.common.app
+import com.godamy.myplayer.ui.detail.di.DetailFragmentComponent
+import com.godamy.myplayer.ui.detail.di.DetailFragmentModule
 import kotlinx.coroutines.launch
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private val safeArgs: DetailFragmentArgs by navArgs()
+    private lateinit var component: DetailFragmentComponent
+    private val viewModel: DetailViewModel by viewModels { component.detailViewModelFactory }
 
-    private val viewModel: DetailViewModel by viewModels { app.component.detailViewModelFactory }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        component = app.component.plus(DetailFragmentModule(safeArgs.mediaItemId))
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

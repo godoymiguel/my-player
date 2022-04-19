@@ -9,13 +9,21 @@ import com.godamy.myplayer.databinding.FragmentMainBinding
 import com.godamy.myplayer.ui.common.app
 import com.godamy.myplayer.ui.common.launchAndCollect
 import com.godamy.myplayer.ui.main.adapter.MediaItemAdapter
+import com.godamy.myplayer.ui.main.di.MainFragmentComponent
+import com.godamy.myplayer.ui.main.di.MainFragmentModule
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
-    private val viewModel: MainViewModel by viewModels { app.component.mainViewModelFactory }
+    private lateinit var component: MainFragmentComponent
+    private val viewModel: MainViewModel by viewModels { component.mainViewModelFactory }
 
     private lateinit var mainState: MainState
     private val mediaItemAdapter = MediaItemAdapter { mainState.onMediaItemClicked(it.id) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        component = app.component.plus(MainFragmentModule)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

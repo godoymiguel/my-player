@@ -1,22 +1,13 @@
-package com.godamy.myplayer.di
+package com.godamy.myplayer.ui.detail.di
 
 import com.godamy.myplayer.ui.detail.DetailViewModelFactory
-import com.godamy.myplayer.ui.main.MainViewModelFactory
 import com.godamy.myplayer.usecases.FindMovieUseCase
-import com.godamy.myplayer.usecases.GetPopularMoviesUserCase
-import com.godamy.myplayer.usecases.RequestPopularMoviesUseCase
 import com.godamy.myplayer.usecases.SwitchFavoriteUseCase
 import dagger.Module
 import dagger.Provides
 
 @Module
-object ViewModelModule {
-
-    @Provides
-    fun provideMainViewModelFactory(
-        getPopularMoviesUserCase: GetPopularMoviesUserCase,
-        requestPopularMoviesUseCase: RequestPopularMoviesUseCase
-    ) = MainViewModelFactory(getPopularMoviesUserCase, requestPopularMoviesUseCase)
+class DetailFragmentModule(private val mediaItemId: Int) {
 
     @Provides
     fun provideDetailViewModelFactory(
@@ -24,7 +15,7 @@ object ViewModelModule {
         switchFavoriteUseCase: SwitchFavoriteUseCase
     ): DetailViewModelFactory {
         return DetailViewModelFactory(
-            -1,
+            mediaItemId,
             findMovieUseCase,
             switchFavoriteUseCase
         )
