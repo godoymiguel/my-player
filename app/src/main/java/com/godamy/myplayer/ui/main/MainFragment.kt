@@ -3,15 +3,16 @@ package com.godamy.myplayer.ui.main
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.godamy.myplayer.R
 import com.godamy.myplayer.databinding.FragmentMainBinding
+import com.godamy.myplayer.ui.common.app
 import com.godamy.myplayer.ui.common.launchAndCollect
 import com.godamy.myplayer.ui.main.adapter.MediaItemAdapter
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
-    private val viewModel: MainViewModel by viewModel()
+    private val viewModel: MainViewModel by viewModels { app.component.mainViewModelFactory }
 
     private lateinit var mainState: MainState
     private val mediaItemAdapter = MediaItemAdapter { mainState.onMediaItemClicked(it.id) }

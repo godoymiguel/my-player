@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.core.os.bundleOf
 import androidx.core.text.bold
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -101,3 +102,4 @@ fun <T> LifecycleOwner.launchAndCollect(
 }
 
 val Context.app: App get() = applicationContext as App
+val Fragment.app: App get() = requireActivity().app
