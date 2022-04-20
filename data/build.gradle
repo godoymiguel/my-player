@@ -1,3 +1,5 @@
+import com.godamy.myplayer.buildSrc.Libs
+
 plugins {
     id 'java-library'
     id 'org.jetbrains.kotlin.jvm'
@@ -13,9 +15,9 @@ dependencies {
     implementation project(':domain')
 
     // https://github.com/Kotlin/kotlinx.coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
+    implementation Libs.Kotlin.Coroutines.core
 
-    implementation 'io.arrow-kt:arrow-core:1.0.6-alpha.1'
+    implementation Libs.Arrow.core
 
-    implementation "javax.inject:javax.inject:1"
+    implementation Libs.JavaX.inject
 }
