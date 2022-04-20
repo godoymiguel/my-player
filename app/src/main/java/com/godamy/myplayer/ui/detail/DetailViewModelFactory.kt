@@ -4,10 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.godamy.myplayer.usecases.FindMovieUseCase
 import com.godamy.myplayer.usecases.SwitchFavoriteUseCase
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 
 @Suppress("UNCHECKED_CAST")
-class DetailViewModelFactory(
-    private val mediaItemId: Int,
+class DetailViewModelFactory @AssistedInject constructor(
+    @Assisted private val mediaItemId: Int,
     private val findMovieUseCase: FindMovieUseCase,
     private val switchFavoriteUseCase: SwitchFavoriteUseCase
 ) : ViewModelProvider.Factory {

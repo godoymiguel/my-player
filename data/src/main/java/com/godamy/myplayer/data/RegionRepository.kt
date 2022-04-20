@@ -2,8 +2,9 @@ package com.godamy.myplayer.data
 
 import com.godamy.myplayer.data.PermissionChecker.Permission.COARSE_LOCATION
 import com.godamy.myplayer.data.datasource.LocationDataSource
+import javax.inject.Inject
 
-class RegionRepository(
+class RegionRepository @Inject constructor(
     private val locationDataSource: LocationDataSource,
     private val permissionChecker: PermissionChecker
 ) {

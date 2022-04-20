@@ -4,9 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.godamy.myplayer.usecases.GetPopularMoviesUserCase
 import com.godamy.myplayer.usecases.RequestPopularMoviesUseCase
+import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
-class MainViewModelFactory(
+class MainViewModelFactory @Inject constructor(
     private val getPopularMoviesUserCase: GetPopularMoviesUserCase,
     private val requestPopularMoviesUseCase: RequestPopularMoviesUseCase
 ) :

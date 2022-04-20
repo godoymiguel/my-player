@@ -5,8 +5,10 @@ import com.godamy.myplayer.domain.Error
 import com.godamy.myplayer.domain.MediaItem
 import com.godamy.myplayer.framework.common.tryCall
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class MediaItemRoomDataSource(private val dao: MediaItemDao) : MediaItemLocalDataSource {
+class MediaItemRoomDataSource @Inject constructor(private val dao: MediaItemDao) :
+    MediaItemLocalDataSource {
 
     override val mediaItems = dao.getAll().map { it.toDomainModel() }
 

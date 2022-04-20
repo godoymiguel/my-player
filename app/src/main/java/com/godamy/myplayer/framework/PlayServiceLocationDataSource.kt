@@ -7,9 +7,11 @@ import android.location.Location
 import com.godamy.myplayer.data.datasource.LocationDataSource
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.suspendCancellableCoroutine
+import javax.inject.Inject
 import kotlin.coroutines.resume
 
-class PlayServiceLocationDataSource(application: Application) : LocationDataSource {
+class PlayServiceLocationDataSource @Inject constructor(application: Application) :
+    LocationDataSource {
 
     // Inicializo el location service de google con el activity
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(application)

@@ -4,8 +4,9 @@ import com.godamy.myplayer.data.datasource.MediaItemLocalDataSource
 import com.godamy.myplayer.data.datasource.MediaItemRemoteDataSource
 import com.godamy.myplayer.domain.Error
 import com.godamy.myplayer.domain.MediaItem
+import javax.inject.Inject
 
-class MediaRepository(
+class MediaRepository @Inject constructor(
     private val regionRepository: RegionRepository,
     private val localDataSource: MediaItemLocalDataSource,
     private val remoteDataSource: MediaItemRemoteDataSource

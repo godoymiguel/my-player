@@ -12,19 +12,19 @@ import androidx.navigation.fragment.navArgs
 import com.godamy.myplayer.R
 import com.godamy.myplayer.databinding.FragmentDetailBinding
 import com.godamy.myplayer.ui.common.app
-import com.godamy.myplayer.ui.detail.di.DetailFragmentComponent
-import com.godamy.myplayer.ui.detail.di.DetailFragmentModule
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
 
+    @Inject
+    lateinit var factory: DetailViewModelAssistedFactory
     private val safeArgs: DetailFragmentArgs by navArgs()
-    private lateinit var component: DetailFragmentComponent
-    private val viewModel: DetailViewModel by viewModels { component.detailViewModelFactory }
+    private val viewModel: DetailViewModel by viewModels { factory.create(safeArgs.mediaItemId) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        component = app.component.plus(DetailFragmentModule(safeArgs.mediaItemId))
+        app.component.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
