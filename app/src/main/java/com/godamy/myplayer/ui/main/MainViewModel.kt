@@ -5,10 +5,13 @@ import androidx.lifecycle.viewModelScope
 import com.godamy.myplayer.framework.common.toError
 import com.godamy.myplayer.usecases.GetPopularMoviesUserCase
 import com.godamy.myplayer.usecases.RequestPopularMoviesUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(
+@HiltViewModel
+class MainViewModel @Inject constructor(
     getPopularMoviesUserCase: GetPopularMoviesUserCase,
     private val requestPopularMoviesUseCase: RequestPopularMoviesUseCase
 ) : ViewModel() {

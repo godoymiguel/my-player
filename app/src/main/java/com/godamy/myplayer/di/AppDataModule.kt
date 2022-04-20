@@ -10,8 +10,11 @@ import com.godamy.myplayer.framework.database.MediaItemRoomDataSource
 import com.godamy.myplayer.framework.server.MediaItemServerDataSource
 import dagger.Binds
 import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
 @Module
+@InstallIn(SingletonComponent::class)
 @Suppress("UnnecessaryAbstractClass")
 abstract class AppDataModule {
 
