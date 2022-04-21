@@ -1,8 +1,8 @@
 package com.godamy.myplayer.ui.detail
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.godamy.myplayer.di.MediaItemId
 import com.godamy.myplayer.framework.common.toError
 import com.godamy.myplayer.usecases.FindMovieUseCase
 import com.godamy.myplayer.usecases.SwitchFavoriteUseCase
@@ -13,12 +13,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+    @MediaItemId private val mediaItemId: Int,
     findMovieUseCase: FindMovieUseCase,
     private val switchFavoriteUseCase: SwitchFavoriteUseCase
 ) : ViewModel() {
 
-    private val mediaItemId = DetailFragmentArgs.fromSavedStateHandle(savedStateHandle).mediaItemId
     private val _state = MutableStateFlow(DetailUiState())
     val state: StateFlow<DetailUiState> = _state.asStateFlow()
 
