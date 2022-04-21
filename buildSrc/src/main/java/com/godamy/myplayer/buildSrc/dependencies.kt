@@ -7,6 +7,7 @@ object Libs {
     const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:0.42.0"
     const val androidGradlePlugin = "com.android.tools.build:gradle:7.1.3"
     const val playServicesLocation = "com.google.android.gms:play-services-location:19.0.1"
+    const val turbine = "app.cash.turbine:turbine:0.7.0"
 
     object Kotlin {
 
@@ -16,6 +17,7 @@ object Libs {
         object Coroutines {
             private const val version = "1.6.1"
             const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
+            const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
         }
     }
 
@@ -64,6 +66,11 @@ object Libs {
                 const val core = "androidx.test.espresso:espresso-core:$version"
             }
         }
+
+        object Arch {
+            private const val version = "2.1.0"
+            const val coreTesting = "androidx.arch.core:core-testing:$version"
+        }
     }
 
     object Glide {
@@ -102,5 +109,10 @@ object Libs {
 
     object JavaX {
         const val inject = "javax.inject:javax.inject:1"
+    }
+
+    object Mockito {
+        const val kotlin = "org.mockito.kotlin:mockito-kotlin:4.0.0"
+        const val inline = "org.mockito:mockito-inline:4.5.0"
     }
 }

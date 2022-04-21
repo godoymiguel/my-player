@@ -11,7 +11,7 @@ class MediaRepository @Inject constructor(
     private val localDataSource: MediaItemLocalDataSource,
     private val remoteDataSource: MediaItemRemoteDataSource
 ) {
-    val popularMovies = localDataSource.mediaItems
+    val popularMovies get() = localDataSource.mediaItems
 
     suspend fun requestPopularMovies(): Error? {
         if (localDataSource.isEmpty()) {
