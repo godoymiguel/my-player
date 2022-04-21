@@ -8,4 +8,7 @@
     <string name="all">All</string>
     <string name="photos">Photos</string>
     <string name="videos">Videos</string>
+    <string name="connectivity_error" translatable="false">Connectivity Error</string>
+    <string name="server_error" translatable="false">\"Server Error: \"</string>
+    <string name="unknown_error" translatable="false">\"Unknown Error: \"</string>
 </resources>

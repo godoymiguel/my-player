@@ -1,30 +1,19 @@
 package com.godamy.myplayer.ui.main.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.godamy.myplayer.common.loadUrl
 import com.godamy.myplayer.databinding.ViewMediaItemBinding
-import com.godamy.myplayer.model.MediaItem
-import kotlin.properties.Delegates
+import com.godamy.myplayer.domain.MediaItem
+import com.godamy.myplayer.ui.common.basicDiffUtil
 
-//TODO Creando un lamda (MediaItem) -> Unit
+// ListAdapter used to manage recycle view list items
 class MediaItemAdapter(
-    items: List<MediaItem> = emptyList(),
     private val mediaItemClickListener: (MediaItem) -> Unit
-) : RecyclerView.Adapter<MediaItemAdapter.ViewHolder>() {
-
-    //TODO Notify by observable when the list of element changes
-    var items: List<MediaItem> by Delegates.observable(items){_,_,_ ->
-        notifyDataSetChanged()
-    }
+) : ListAdapter<MediaItem, MediaItemAdapter.ViewHolder>(basicDiffUtil { old, new -> old.id == new.id }) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-//        TODO fun extension
-//        val view = parent.infate(R.layout.view_media_item)
-
-//        TODO inflar la vista con binding en adapter
         val binding = ViewMediaItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
@@ -34,30 +23,17 @@ class MediaItemAdapter(
         return ViewHolder(binding)
     }
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        //TODO reciclo las celdas que salen de la pantalla
-        val mediaItem = items[position]
+        val mediaItem = getItem(position)
         holder.bind(mediaItem)
-        //TODO aplicando una lamda
         holder.itemView.setOnClickListener { mediaItemClickListener(mediaItem) }
     }
-
-    //TODO devolver el numero de item
-    override fun getItemCount(): Int = items.size
 
     class ViewHolder(private val binding: ViewMediaItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(mediaItem: MediaItem) {
-            with(binding) {
-                tvMediaTitle.text = mediaItem.title
-                ivMediaThumb.loadUrl("https://image.tmdb.org/t/p/w185/${mediaItem.poster_path}")
-                ivVideoThumb.visibility = when {
-                    mediaItem.video -> View.VISIBLE
-                    else -> View.GONE
-                }
-            }
+            binding.mediaItem = mediaItem
         }
     }
 }
