@@ -7,7 +7,7 @@ object Libs {
     const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:0.42.0"
     const val androidGradlePlugin = "com.android.tools.build:gradle:7.1.3"
     const val playServicesLocation = "com.google.android.gms:play-services-location:19.0.1"
-    const val turbine = "app.cash.turbine:turbine:0.7.0"
+    const val turbine = "app.cash.turbine:turbine:0.8.0"
 
     object Kotlin {
 
@@ -91,7 +91,7 @@ object Libs {
     }
 
     object Arrow {
-        private const val version = "1.1.0"
+        private const val version = "1.1.2"
         const val core = "io.arrow-kt:arrow-core:$version"
     }
 
@@ -113,6 +113,6 @@ object Libs {
 
     object Mockito {
         const val kotlin = "org.mockito.kotlin:mockito-kotlin:4.0.0"
-        const val inline = "org.mockito:mockito-inline:4.5.0"
+        const val inline = "org.mockito:mockito-inline:4.5.1"
     }
 }

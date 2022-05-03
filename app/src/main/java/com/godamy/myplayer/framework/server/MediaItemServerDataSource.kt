@@ -9,13 +9,14 @@ import com.godamy.myplayer.framework.common.Logger
 import com.godamy.myplayer.framework.common.tryCall
 import javax.inject.Inject
 
-class MediaItemServerDataSource @Inject constructor(@ApiKey private val apiKey: String) :
-    MediaItemRemoteDataSource, Logger {
+class MediaItemServerDataSource @Inject constructor(
+    @ApiKey private val apiKey: String,
+    private val remoteService: MediaApiService
+) : MediaItemRemoteDataSource {
 
     override suspend fun requestPopularMovies(region: String): Either<Error, List<MediaItem>> =
         tryCall {
-            logI("Region: $region")
-            RemoteConnection.service.listPopularMovies(
+            remoteService.listPopularMovies(
                 apiKey,
                 region
             ).results.toDomainModel()
