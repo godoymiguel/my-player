@@ -39,14 +39,19 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRemoteService(): MediaApiService {
+    @ApiUrl
+    fun provideApiUrl(): String = "https://api.themoviedb.org/3/"
+
+    @Provides
+    @Singleton
+    fun provideRemoteService(@ApiUrl apiUrl: String): MediaApiService {
         val okHttpClient = HttpLoggingInterceptor().run {
             level = HttpLoggingInterceptor.Level.BODY
             OkHttpClient.Builder().addInterceptor(this).build()
         }
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3/")
+            .baseUrl(apiUrl)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

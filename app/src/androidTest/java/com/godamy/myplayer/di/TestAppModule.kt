@@ -2,17 +2,19 @@ package com.godamy.myplayer.di
 
 import android.app.Application
 import androidx.room.Room
-import com.godamy.myplayer.FakeMovieDao
-import com.godamy.myplayer.FakeRemoteService
 import com.godamy.myplayer.R
 import com.godamy.myplayer.framework.database.MediaItemDao
 import com.godamy.myplayer.framework.database.MediaItemDataBase
 import com.godamy.myplayer.framework.server.MediaApiService
-import com.godamy.myplayer.ui.buildMediaItemRemote
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import javax.inject.Singleton
 
 @Module
@@ -37,5 +39,23 @@ object TestAppModule {
 
     @Provides
     @Singleton
-    fun provideRemoteService(): MediaApiService = FakeRemoteService(buildMediaItemRemote(1,2,3,4,5,6))
+    @ApiUrl
+    fun provideApiUrl(): String = "http://localhost:8080"
+
+    @Provides
+    @Singleton
+    fun provideRemoteService(@ApiUrl apiUrl: String): MediaApiService {
+        val okHttpClient = HttpLoggingInterceptor().run {
+            level = HttpLoggingInterceptor.Level.BODY
+            OkHttpClient.Builder().addInterceptor(this).build()
+        }
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(apiUrl)
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        return retrofit.create()
+    }
 }

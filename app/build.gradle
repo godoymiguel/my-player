@@ -40,11 +40,12 @@ android {
         dataBinding true
     }
     sourceSets {
+        String testShared = "$projectDir/src/testShared/java"
         test {
-            java.srcDirs += "$projectDir/src/testShared/java"
+            java.srcDirs += testShared
         }
         androidTest {
-            java.srcDirs += "$projectDir/src/testShared/java"
+            java.srcDirs += testShared
         }
     }
 }
@@ -106,6 +107,7 @@ dependencies {
     androidTestImplementation Libs.AndroidX.Test.rules
     androidTestImplementation Libs.Hilt.test
     androidTestImplementation Libs.Kotlin.Coroutines.test
+    androidTestImplementation Libs.OkHttp3.mockWebServer
 
     kaptAndroidTest Libs.Hilt.compiler
 }
