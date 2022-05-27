@@ -5,7 +5,7 @@ package com.godamy.myplayer.buildSrc
 object Libs {
 
     const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:0.42.0"
-    const val androidGradlePlugin = "com.android.tools.build:gradle:7.2.0"
+    const val androidGradlePlugin = "com.android.tools.build:gradle:7.2.1"
     const val playServicesLocation = "com.google.android.gms:play-services-location:19.0.1"
     const val turbine = "app.cash.turbine:turbine:0.8.0"
 
