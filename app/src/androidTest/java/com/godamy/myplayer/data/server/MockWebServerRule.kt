@@ -10,7 +10,7 @@ class MockWebServerRule : TestWatcher() {
 
     override fun starting(description: Description) {
         server = MockWebServer()
-        super.starting(description)
+        server.start(8080)
     }
 
     override fun finished(description: Description) {
