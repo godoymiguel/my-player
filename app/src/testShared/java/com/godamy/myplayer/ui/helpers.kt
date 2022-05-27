@@ -1,5 +1,9 @@
-package com.godamy.myplayer
+package com.godamy.myplayer.ui
 
+import com.godamy.myplayer.FakeLocationDataSource
+import com.godamy.myplayer.FakeMovieDao
+import com.godamy.myplayer.FakePermissionChecker
+import com.godamy.myplayer.FakeRemoteService
 import com.godamy.myplayer.data.MediaRepository
 import com.godamy.myplayer.data.RegionRepository
 import com.godamy.myplayer.framework.database.MediaItemEntity
