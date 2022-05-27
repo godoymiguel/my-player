@@ -5,7 +5,7 @@ package com.godamy.myplayer.buildSrc
 object Libs {
 
     const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:0.42.0"
-    const val androidGradlePlugin = "com.android.tools.build:gradle:7.1.3"
+    const val androidGradlePlugin = "com.android.tools.build:gradle:7.2.1"
     const val playServicesLocation = "com.google.android.gms:play-services-location:19.0.1"
     const val turbine = "app.cash.turbine:turbine:0.8.0"
 
@@ -26,8 +26,8 @@ object Libs {
         const val coreKtx = "androidx.core:core-ktx:1.7.0"
         const val appCompat = "androidx.appcompat:appcompat:1.4.1"
         const val recyclerView = "androidx.recyclerview:recyclerview:1.2.1"
-        const val material = "com.google.android.material:material:1.5.0"
-        const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.3"
+        const val material = "com.google.android.material:material:1.6.0"
+        const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.4"
 
         object Activity {
             private const val version = "1.4.0"
@@ -56,14 +56,18 @@ object Libs {
         }
 
         object Test {
+            private const val version = "1.4.0"
+            const val runner = "androidx.test:runner:$version"
+            const val rules = "androidx.test:rules:$version"
+
             object Ext {
                 private const val version = "1.1.3"
-                const val junit = "androidx.test.ext:junit:$version"
+                const val junit = "androidx.test.ext:junit-ktx:$version"
             }
 
             object Espresso {
                 private const val version = "3.4.0"
-                const val core = "androidx.test.espresso:espresso-core:$version"
+                const val contrib = "androidx.test.espresso:espresso-contrib:$version"
             }
         }
 
@@ -74,7 +78,7 @@ object Libs {
     }
 
     object Glide {
-        private const val version = "4.13.1"
+        private const val version = "4.13.2"
         const val glide = "com.github.bumptech.glide:glide:$version"
         const val compiler = "com.github.bumptech.glide:compiler:$version"
     }
@@ -82,6 +86,7 @@ object Libs {
     object OkHttp3 {
         private const val version = "4.9.3"
         const val loginInterceptor = "com.squareup.okhttp3:logging-interceptor:$version"
+        const val mockWebServer = "com.squareup.okhttp3:mockwebserver:$version"
     }
 
     object Retrofit {
@@ -96,10 +101,11 @@ object Libs {
     }
 
     object Hilt {
-        private const val version = "2.41"
+        private const val version = "2.42"
         const val android = "com.google.dagger:hilt-android:$version"
         const val compiler = "com.google.dagger:hilt-compiler:$version"
         const val gradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:$version"
+        const val test = "com.google.dagger:hilt-android-testing:$version"
     }
 
     object JUnit {

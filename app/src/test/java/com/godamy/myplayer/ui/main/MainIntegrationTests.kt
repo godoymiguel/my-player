@@ -1,9 +1,9 @@
 package com.godamy.myplayer.ui.main
 
 import app.cash.turbine.test
-import com.godamy.myplayer.buildMediaItemEntity
-import com.godamy.myplayer.buildMediaItemRemote
-import com.godamy.myplayer.buildRepositoryWith
+import com.godamy.myplayer.ui.buildMediaItemEntity
+import com.godamy.myplayer.ui.buildMediaItemRemote
+import com.godamy.myplayer.ui.buildRepositoryWith
 import com.godamy.myplayer.framework.database.MediaItemEntity
 import com.godamy.myplayer.framework.server.MediaItemRemote
 import com.godamy.myplayer.testrules.CoroutinesTestRule
