@@ -44,18 +44,18 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRemoteService(@ApiUrl apiUrl: String): MediaApiService {
-        val okHttpClient = HttpLoggingInterceptor().run {
-            level = HttpLoggingInterceptor.Level.BODY
-            OkHttpClient.Builder().addInterceptor(this).build()
-        }
+    fun provideOkHttpClient(): OkHttpClient = HttpLoggingInterceptor().run {
+        level = HttpLoggingInterceptor.Level.BODY
+        OkHttpClient.Builder().addInterceptor(this).build()
+    }
 
-        val retrofit = Retrofit.Builder()
+    @Provides
+    @Singleton
+    fun provideRemoteService(@ApiUrl apiUrl: String, okHttpClient: OkHttpClient): MediaApiService =
+        Retrofit.Builder()
             .baseUrl(apiUrl)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-
-        return retrofit.create()
-    }
+            .create()
 }

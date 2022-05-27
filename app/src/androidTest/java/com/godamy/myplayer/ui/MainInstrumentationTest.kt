@@ -1,22 +1,27 @@
 package com.godamy.myplayer.ui
 
+import androidx.recyclerview.widget.RecyclerView
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.rule.GrantPermissionRule
-import com.godamy.myplayer.data.datasource.MediaItemRemoteDataSource
+import com.godamy.myplayer.R
 import com.godamy.myplayer.data.server.MockWebServerRule
+import com.godamy.myplayer.data.server.OkHttp3IdlingResource
 import com.godamy.myplayer.data.server.fromJson
-import com.godamy.myplayer.framework.database.MediaItemDao
 import com.godamy.myplayer.ui.common.NavHostActivity
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runTest
+import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockResponse
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.lang.Exception
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
@@ -37,10 +42,7 @@ class MainInstrumentationTest {
     val activityRule = ActivityScenarioRule(NavHostActivity::class.java)
 
     @Inject
-    lateinit var mediaItemDao: MediaItemDao
-
-    @Inject
-    lateinit var remoteDataSource: MediaItemRemoteDataSource
+    lateinit var okHttpClient: OkHttpClient
 
     @Before
     fun setUp() {
@@ -48,19 +50,17 @@ class MainInstrumentationTest {
             MockResponse().fromJson("popular_movies.json")
         )
         hiltRule.inject()
+
+        val resource = OkHttp3IdlingResource.create("okhttp", okHttpClient)
+        IdlingRegistry.getInstance().register(resource)
     }
 
     @Test
-    fun test_it_works() = runTest {
-        mediaItemDao.save(buildMediaItemEntity(1, 2, 3, 4, 5, 6))
-        Assert.assertEquals(6, mediaItemDao.mediaItemCount())
+    fun click_a_movie_navigates_to_detail() {
+        onView(withId(R.id.rv_main))
+            .perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(3, click()))
+
+        onView(withId(R.id.toolbar)).check(matches(hasDescendant(withText("The Batman"))))
     }
 
-    @Test
-    fun check_mock_server_is_working() = runTest {
-        val movies = remoteDataSource.requestPopularMovies("ES")
-        movies.fold({throw Exception(it.toString())}) {
-            Assert.assertEquals("Morbius", it[0].title)
-        }
-    }
 }
